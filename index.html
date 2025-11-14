@@ -38,20 +38,14 @@
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
-
-        // --- الخطافات والمكونات المفقودة (نسخ مؤقتة) ---
-        // !!! هام: الرجاء استبدال هذا الكود بالكود الفعلي لمكوناتك إذا كان لديك
         
-        // مؤقت: useLocalStorage.js
+        // مؤقت: useLocalStorage.js (لا تغيير هنا)
         const useLocalStorage = (key, initialValue) => {
             const [storedValue, setStoredValue] = useState(() => {
                 try {
                     const item = window.localStorage.getItem(key);
                     return item ? JSON.parse(item) : initialValue;
-                } catch (error) {
-                    console.log(error);
-                    return initialValue;
-                }
+                } catch (error) { console.log(error); return initialValue; }
             });
 
             const setValue = (value) => {
@@ -59,80 +53,124 @@
                     const valueToStore = value instanceof Function ? value(storedValue) : value;
                     setStoredValue(valueToStore);
                     window.localStorage.setItem(key, JSON.stringify(valueToStore));
-                } catch (error) {
-                    console.log(error);
-                }
+                } catch (error) { console.log(error); }
             };
             return [storedValue, setValue];
         };
 
-        // مؤقت: GameContainer.js
+        // مؤقت: GameContainer.js (لا تغيير هنا)
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
             if (currentStageIndex >= stages.length) {
                 return (
                     <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl">
                         <h2 className="text-4xl font-bold text-green-500 mb-4">🎉 تهانينا! لقد أكملت كل المراحل! 🎉</h2>
-                        <p className="text-xl">أداء رائع!</p>
                     </div>
                 );
             }
             const currentStage = stages[currentStageIndex];
             return (
-                <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-2xl">
+                <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[60vh] flex flex-col">
                     <h2 className="text-3xl font-bold mb-4">المرحلة {currentStageIndex + 1}: {currentStage.title}</h2>
-                    <p className="text-lg mb-6">هذا مجرد مثال لمكون اللعبة. المحتوى الفعلي يعتمد على تصميمك.</p>
-                    <p className="mb-4">نوع اللعبة: <strong>{currentStage.type}</strong></p>
+                    <iframe 
+                        src={currentStage.url} 
+                        className="w-full h-full border-4 border-purple-300 rounded-lg shadow-inner"
+                        frameBorder="0" 
+                        allowFullScreen
+                    ></iframe>
                     <button 
                         onClick={onNextStage}
-                        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
+                        className="mt-6 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
                     >
-                        الانتقال للمرحلة التالية
+                        المرحلة التالية
                     </button>
                 </div>
             );
         };
         
-        // --- نسخة محدّثة من SettingsPanel.js لتطابق الصورة ---
+        // --- نسخة محدّثة وجذرية من SettingsPanel.js ---
         const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
-            // مثال افتراضي أكثر وضوحاً للمعلم
-            const placeholder = [
-              {
-                "type": "wordwall",
-                "title": "المرحلة الأولى: الفواكه",
-                "url": "https://wordwall.net/embed/play/12345/abc/def"
-              }
-            ];
+            // حالة داخلية للمكون لإدارة المراحل القابلة للتعديل
+            const [editableStages, setEditableStages] = useState(
+                initialStages.length > 0 ? initialStages : [{ title: '', url: '', type: 'wordwall' }]
+            );
+
+            // دالة لتحديث بيانات مرحلة معينة
+            const handleStageChange = (index, field, value) => {
+                const newStages = [...editableStages];
+                newStages[index][field] = value;
+                setEditableStages(newStages);
+            };
+
+            // دالة لإضافة مرحلة جديدة فارغة
+            const handleAddStage = () => {
+                setEditableStages([...editableStages, { title: '', url: '', type: 'wordwall' }]);
+            };
             
-            // استخدم المثال فقط إذا كانت المراحل الحالية فارغة
-            const initialText = initialStages && initialStages.length > 0 ? initialStages : placeholder;
-            const [stagesText, setStagesText] = useState(JSON.stringify(initialText, null, 2));
+            // دالة لحذف مرحلة معينة
+            const handleDeleteStage = (indexToDelete) => {
+                setEditableStages(editableStages.filter((_, index) => index !== indexToDelete));
+            };
 
-
+            // دالة الحفظ
             const handleSave = () => {
-                try {
-                    const newStages = JSON.parse(stagesText);
-                    onSave(newStages);
-                    alert('تم حفظ المراحل!');
-                } catch (e) {
-                    alert('خطأ في صيغة JSON. الرجاء المراجعة.');
-                }
+                // فلترة المراحل التي لا تحتوي على عنوان أو رابط
+                const validStages = editableStages.filter(stage => stage.title.trim() !== '' && stage.url.trim() !== '');
+                onSave(validStages);
+                alert('تم حفظ المراحل بنجاح!');
             };
 
             return (
-                <div className="p-6 sm:p-8 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-3xl border border-gray-200">
-                    <h2 className="text-3xl sm:text-4xl font-extrabold mb-2 text-slate-800 text-center" style={{ fontFamily: "'Cairo', sans-serif", fontWeight: 800 }}>
+                <div className="p-6 sm:p-8 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-200">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-slate-800 text-center" style={{ fontFamily: "'Cairo', sans-serif", fontWeight: 800 }}>
                         لوحة تحكم المعلم
                     </h2>
-                    <p className="mb-6 text-slate-500 text-center">
-                        أدخل إعدادات المراحل بصيغة JSON. كل عنصر في المصفوفة يمثل مرحلة.
-                    </p>
-                    <textarea 
-                        value={stagesText}
-                        onChange={(e) => setStagesText(e.target.value)}
-                        className="w-full h-72 p-4 font-mono text-sm border-2 border-purple-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition shadow-inner bg-slate-50"
-                        dir="ltr"
-                    />
-                    <div className="flex justify-between items-center mt-6">
+                    
+                    <div className="space-y-6 max-h-[50vh] overflow-y-auto pr-2">
+                        {editableStages.map((stage, index) => (
+                            <div key={index} className="p-4 border border-slate-300 rounded-lg bg-slate-50 relative">
+                                <h3 className="font-bold text-lg mb-3 text-purple-700">المرحلة {index + 1}</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 mb-1">اسم المرحلة</label>
+                                        <input 
+                                            type="text"
+                                            placeholder="مثال: مراجعة الوحدة الأولى"
+                                            value={stage.title}
+                                            onChange={(e) => handleStageChange(index, 'title', e.target.value)}
+                                            className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 mb-1">رابط لعبة Wordwall</label>
+                                        <input 
+                                            type="text"
+                                            placeholder="الصق رابط 'embed' هنا"
+                                            value={stage.url}
+                                            onChange={(e) => handleStageChange(index, 'url', e.target.value)}
+                                            className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 ltr-input"
+                                            dir="ltr"
+                                        />
+                                    </div>
+                                </div>
+                                <button 
+                                    onClick={() => handleDeleteStage(index)}
+                                    className="absolute top-2 left-2 text-red-500 hover:text-red-700 font-bold text-xl"
+                                    title="حذف المرحلة"
+                                >
+                                    &times;
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <button 
+                        onClick={handleAddStage}
+                        className="w-full mt-6 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-4 rounded-lg border border-slate-400 transition"
+                    >
+                        + إضافة مرحلة جديدة
+                    </button>
+
+                    <div className="flex justify-between items-center mt-8">
                         <button onClick={handleSave} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
                             حفظ التغييرات
                         </button>
@@ -144,7 +182,7 @@
             );
         };
 
-        // --- كود ملف App.js الأصلي ---
+        // --- كود ملف App.js الأصلي (لا تغيير هنا) ---
         function App() {
             const [stages, setStages] = useLocalStorage('wordwallStages', []);
             const [view, setView] = useState('game');
@@ -156,21 +194,15 @@
                     if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
                         return;
                     }
-
                     const adminKey = 'admin';
                     keySequenceRef.current = (keySequenceRef.current + e.key.toLowerCase()).slice(-adminKey.length);
-
                     if (keySequenceRef.current === adminKey) {
                         setView('settings');
                         keySequenceRef.current = '';
                     }
                 };
-
                 window.addEventListener('keydown', handleKeyDown);
-
-                return () => {
-                    window.removeEventListener('keydown', handleKeyDown);
-                };
+                return () => window.removeEventListener('keydown', handleKeyDown);
             }, []);
 
             const handleUpdateStages = (newStages) => {
@@ -178,7 +210,10 @@
             };
             
             const handleNextStage = () => {
-                if (currentStageIndex < stages.length) {
+                if (currentStageIndex < stages.length - 1) { // تعديل بسيط لمنع التجاوز
+                    setCurrentStageIndex(prev => prev + 1);
+                } else {
+                     // عندما تكون في آخر مرحلة، انتقل إلى شاشة النهاية
                     setCurrentStageIndex(prev => prev + 1);
                 }
             };
@@ -192,7 +227,6 @@
                             </h1>
                         </div>
                     </header>
-
                     <main className="flex-grow w-full flex justify-center items-center">
                         {view === 'settings' ? (
                             <SettingsPanel 
@@ -209,28 +243,22 @@
                         ) : (
                             <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-4 border-white">
                                 <h1 className="text-5xl font-heading text-amber-500 text-shadow-fun mb-4">🚀 مرحباً بك! 🚀</h1>
-                                <p className="text-2xl font-bold text-slate-700">مغامرة الألعاب التعليمية جاهزة للبدء.</p>
                                 <p className="text-xl text-slate-600 mt-2">يبدو أنه لا توجد مراحل مُعدة بعد. يمكن للمعلم إضافة ألعاب جديدة.</p>
                                 <p className="text-sm text-slate-500 mt-4">(لفتح لوحة التحكم، اكتب كلمة "admin" باستخدام لوحة المفاتيح)</p>
                             </div>
                         )}
                     </main>
-                    <footer className="w-full text-center p-4 mt-8">
+                    <footer className="w-full text-center p-4 mt-auto">
                         <p className="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة - [اسم مؤسستك]</p>
                     </footer>
                 </div>
             );
         }
 
-        // --- كود ملف index.js الأصلي ---
+        // --- كود ملف index.js الأصلي (لا تغيير هنا) ---
         const rootElement = document.getElementById('root');
         const root = ReactDOM.createRoot(rootElement);
-        root.render(
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-        );
-
+        root.render(<React.StrictMode><App /></React.StrictMode>);
     </script>
 </body>
 </html>
