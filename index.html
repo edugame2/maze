@@ -33,20 +33,17 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
         
-        // --- Custom Hook: useLocalStorage (نسخة آمنة) ---
+        // --- Custom Hook: useLocalStorage (آمن) ---
         const useLocalStorage = (key, initialValue) => {
             const [storedValue, setStoredValue] = useState(() => {
                 try {
                     const item = window.localStorage.getItem(key);
                     if (item) {
                         const parsed = JSON.parse(item);
-                        if (Array.isArray(parsed)) {
-                            return parsed;
-                        }
+                        if (Array.isArray(parsed)) return parsed;
                     }
                     return initialValue;
                 } catch (error) {
-                    console.error("Error reading localStorage, clearing data:", error);
                     window.localStorage.removeItem(key);
                     return initialValue;
                 }
@@ -57,15 +54,22 @@
                     const valueToStore = value instanceof Function ? value(storedValue) : value;
                     setStoredValue(valueToStore);
                     window.localStorage.setItem(key, JSON.stringify(valueToStore));
-                } catch (error) {
-                    console.error("Error writing to localStorage:", error);
-                }
+                } catch (error) { console.error("Error writing to localStorage:", error); }
             };
             return [storedValue, setValue];
         };
 
-        // --- Game Component: GameContainer ---
+        // --- Game Component: GameContainer (تم تحديثه بمنطق التأكيد) ---
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
+            const [isStageCompleted, setIsStageCompleted] = useState(false);
+            const [showConfirmation, setShowConfirmation] = useState(false);
+
+            // إعادة ضبط حالة التأكيد عند تغيير المرحلة
+            useEffect(() => {
+                setIsStageCompleted(false);
+                setShowConfirmation(false);
+            }, [currentStageIndex]);
+
             const extractSrcFromEmbed = (embedCode) => {
                 if (!embedCode || typeof embedCode !== 'string') return null;
                 const match = embedCode.match(/src="([^"]+)"/);
@@ -83,8 +87,15 @@
             const currentStage = stages[currentStageIndex] || {};
             const gameUrl = extractSrcFromEmbed(currentStage.embedCode);
 
+            const handleConfirmation = (confirmed) => {
+                if (confirmed) {
+                    setIsStageCompleted(true);
+                }
+                setShowConfirmation(false);
+            };
+
             return (
-                <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[75vh] flex flex-col">
+                <div className="relative text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[75vh] flex flex-col">
                     <h2 className="text-3xl font-bold mb-4">المرحلة {currentStageIndex + 1}: {currentStage.title}</h2>
                     <div className="flex-grow w-full">
                         {gameUrl ? (
@@ -100,17 +111,53 @@
                             </div>
                         )}
                     </div>
-                    <button 
-                        onClick={onNextStage}
-                        className="mt-6 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
-                    >
-                        المرحلة التالية
-                    </button>
+                    
+                    {/* زر التحكم الرئيسي */}
+                    <div className="mt-6">
+                        {!isStageCompleted ? (
+                            <button 
+                                onClick={() => setShowConfirmation(true)}
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
+                            >
+                                لقد انتهيت من هذه المرحلة
+                            </button>
+                        ) : (
+                            <button 
+                                onClick={onNextStage}
+                                className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 animate-pulse"
+                            >
+                                المرحلة التالية
+                            </button>
+                        )}
+                    </div>
+
+                    {/* رسالة التأكيد المنبثقة */}
+                    {showConfirmation && (
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-2xl">
+                            <div className="bg-white p-8 rounded-xl shadow-2xl text-center">
+                                <h3 className="text-2xl font-bold text-slate-800 mb-4">هل أنت متأكد أنك انتهيت؟</h3>
+                                <div className="flex justify-center gap-4">
+                                    <button
+                                        onClick={() => handleConfirmation(true)}
+                                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded-lg"
+                                    >
+                                        نعم
+                                    </button>
+                                    <button
+                                        onClick={() => handleConfirmation(false)}
+                                        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-8 rounded-lg"
+                                    >
+                                        لا
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             );
         };
         
-        // --- Settings Component: StageItem (يحتوي على حقل اسم المرحلة وزر التعديل) ---
+        // --- Settings Component: StageItem ---
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
             const [isEditing, setIsEditing] = useState(!stage.title);
             const [tempStage, setTempStage] = useState(stage);
@@ -138,7 +185,6 @@
                     <div className="flex-grow w-full">
                         {isEditing ? (
                             <div className="space-y-3">
-                                {/* هذا هو حقل اسم المرحلة */}
                                 <input 
                                     type="text"
                                     value={tempStage.title}
@@ -169,7 +215,6 @@
                             </>
                         ) : (
                             <>
-                                {/* هذا هو زر تعديل المرحلة */}
                                 <button onClick={() => setIsEditing(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg w-1/2 md:w-auto">تعديل</button>
                                 <button onClick={() => onDelete(index)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg w-1/2 md:w-auto">حذف</button>
                             </>
