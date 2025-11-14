@@ -33,13 +33,24 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
         
-        // --- Custom Hook: useLocalStorage ---
+        // --- Custom Hook: useLocalStorage (نسخة أكثر أماناً) ---
         const useLocalStorage = (key, initialValue) => {
             const [storedValue, setStoredValue] = useState(() => {
                 try {
                     const item = window.localStorage.getItem(key);
-                    return item ? JSON.parse(item) : initialValue;
-                } catch (error) { console.log(error); return initialValue; }
+                    if (item) {
+                        const parsed = JSON.parse(item);
+                        // التأكد من أن البيانات المحفوظة هي مصفوفة
+                        if (Array.isArray(parsed)) {
+                            return parsed;
+                        }
+                    }
+                    return initialValue; // البدء بقيمة نظيفة إذا كانت البيانات غير صالحة
+                } catch (error) {
+                    console.error("Error reading from localStorage, clearing data:", error);
+                    window.localStorage.removeItem(key); // حذف البيانات التالفة
+                    return initialValue;
+                }
             });
 
             const setValue = (value) => {
@@ -47,14 +58,15 @@
                     const valueToStore = value instanceof Function ? value(storedValue) : value;
                     setStoredValue(valueToStore);
                     window.localStorage.setItem(key, JSON.stringify(valueToStore));
-                } catch (error) { console.log(error); }
+                } catch (error) {
+                    console.error("Error writing to localStorage:", error);
+                }
             };
             return [storedValue, setValue];
         };
 
         // --- Game Component: GameContainer ---
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
-            // دالة لاستخراج رابط 'src' من كود التضمين
             const extractSrcFromEmbed = (embedCode) => {
                 if (!embedCode || typeof embedCode !== 'string') return null;
                 const match = embedCode.match(/src="([^"]+)"/);
@@ -69,7 +81,7 @@
                 );
             }
 
-            const currentStage = stages[currentStageIndex];
+            const currentStage = stages[currentStageIndex] || {}; // إضافة قيمة افتراضية للأمان
             const gameUrl = extractSrcFromEmbed(currentStage.embedCode);
 
             return (
@@ -99,13 +111,13 @@
             );
         };
         
-        // --- Settings Component: StageItem (مكون لإدارة كل مرحلة على حدة) ---
+        // --- Settings Component: StageItem ---
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
             const [isEditing, setIsEditing] = useState(!stage.title);
             const [tempStage, setTempStage] = useState(stage);
 
             const handleSave = () => {
-                if (tempStage.title.trim() === '' || tempStage.embedCode.trim() === '') {
+                if (tempStage.title.trim() === '' || !tempStage.embedCode || tempStage.embedCode.trim() === '') {
                     alert('الرجاء ملء اسم المرحلة وكود التضمين.');
                     return;
                 }
@@ -114,7 +126,7 @@
             };
 
             const handleCancel = () => {
-                if (!stage.title && !stage.embedCode) {
+                if (!stage.title && (!stage.embedCode || stage.embedCode.trim() === '')) {
                     onDelete(index);
                 } else {
                     setTempStage(stage);
@@ -135,7 +147,7 @@
                                     placeholder="اسم المرحلة"
                                 />
                                 <textarea
-                                    value={tempStage.embedCode}
+                                    value={tempStage.embedCode || ''}
                                     onChange={(e) => setTempStage({...tempStage, embedCode: e.target.value})}
                                     className="w-full px-3 py-2 h-24 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 font-mono text-sm"
                                     placeholder="الصق كود التضمين (embed code) هنا"
@@ -166,7 +178,7 @@
             );
         };
 
-        // --- Settings Component: SettingsPanel (اللوحة الرئيسية للمعلم) ---
+        // --- Settings Component: SettingsPanel ---
         const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
             const [stages, setStages] = useState(initialStages);
 
@@ -206,16 +218,10 @@
                     </div>
                     
                     <div className="mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <button 
-                            onClick={handleAddStage}
-                            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105"
-                        >
+                        <button onClick={handleAddStage} className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">
                             + إضافة مرحلة جديدة
                         </button>
-                        <button 
-                            onClick={onBackToGame} 
-                            className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-lg shadow-md"
-                        >
+                        <button onClick={onBackToGame} className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-lg shadow-md">
                             العودة للعبة
                         </button>
                     </div>
@@ -252,6 +258,9 @@
                 setCurrentStageIndex(prev => prev + 1);
             };
 
+            // فلترة المراحل الصالحة فقط للعرض
+            const validStages = Array.isArray(stages) ? stages.filter(s => s && s.embedCode && s.embedCode.trim() !== '') : [];
+
             return (
                 <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 sm:p-6 flex flex-col items-center justify-center">
                     <header className="w-full max-w-5xl mx-auto mb-6">
@@ -262,13 +271,13 @@
                     <main className="flex-grow w-full flex justify-center items-center">
                         {view === 'settings' ? (
                             <SettingsPanel 
-                                initialStages={stages}
+                                initialStages={Array.isArray(stages) ? stages : []}
                                 onSave={handleUpdateStages}
                                 onBackToGame={() => setView('game')}
                             />
-                        ) : stages.length > 0 ? (
+                        ) : validStages.length > 0 ? (
                             <GameContainer 
-                                stages={stages}
+                                stages={validStages}
                                 currentStageIndex={currentStageIndex}
                                 onNextStage={handleNextStage}
                             />
@@ -287,10 +296,19 @@
             );
         }
 
-        // --- Root Rendering ---
+        // --- Root Rendering (مع آلية التقاط الأخطاء) ---
         const rootElement = document.getElementById('root');
-        const root = ReactDOM.createRoot(rootElement);
-        root.render(<React.StrictMode><App /></React.StrictMode>);
+        try {
+            const root = ReactDOM.createRoot(rootElement);
+            root.render(<React.StrictMode><App /></React.StrictMode>);
+        } catch(error) {
+            console.error("Fatal error rendering React app:", error);
+            rootElement.innerHTML = `<div style="padding: 2rem; text-align: center; background-color: #fff3f3; color: #b91c1c;">
+                <h1 style="font-size: 1.5rem; font-weight: bold;">حدث خطأ في التطبيق</h1>
+                <p>لا يمكن تحميل التطبيق بسبب خطأ. الرجاء مسح بيانات الموقع والمحاولة مرة أخرى.</p>
+                <pre style="margin-top: 1rem; padding: 1rem; background-color: #fee2e2; border-radius: 8px; text-align: left; direction: ltr;">${error.message}</pre>
+            </div>`;
+        }
     </script>
 </body>
 </html>
