@@ -59,16 +59,18 @@
             return [storedValue, setValue];
         };
 
-        // --- Game Component: GameContainer (تم تحديثه بمنطق التأكيد) ---
+        // --- Game Component: GameContainer (هنا توجد التعديلات الجديدة) ---
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
+            // --- بداية التعديل: إضافة الحالات الجديدة ---
             const [isStageCompleted, setIsStageCompleted] = useState(false);
             const [showConfirmation, setShowConfirmation] = useState(false);
 
-            // إعادة ضبط حالة التأكيد عند تغيير المرحلة
+            // إعادة ضبط الحالة عند الانتقال لمرحلة جديدة
             useEffect(() => {
                 setIsStageCompleted(false);
                 setShowConfirmation(false);
             }, [currentStageIndex]);
+            // --- نهاية التعديل ---
 
             const extractSrcFromEmbed = (embedCode) => {
                 if (!embedCode || typeof embedCode !== 'string') return null;
@@ -87,12 +89,14 @@
             const currentStage = stages[currentStageIndex] || {};
             const gameUrl = extractSrcFromEmbed(currentStage.embedCode);
 
+            // --- بداية التعديل: دالة التعامل مع رسالة التأكيد ---
             const handleConfirmation = (confirmed) => {
                 if (confirmed) {
-                    setIsStageCompleted(true);
+                    setIsStageCompleted(true); // تفعيل زر "المرحلة التالية"
                 }
-                setShowConfirmation(false);
+                setShowConfirmation(false); // إخفاء الرسالة
             };
+            // --- نهاية التعديل ---
 
             return (
                 <div className="relative text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[75vh] flex flex-col">
@@ -112,7 +116,7 @@
                         )}
                     </div>
                     
-                    {/* زر التحكم الرئيسي */}
+                    {/* --- بداية التعديل: تغيير منطق عرض الأزرار --- */}
                     <div className="mt-6">
                         {!isStageCompleted ? (
                             <button 
@@ -126,15 +130,15 @@
                                 onClick={onNextStage}
                                 className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 animate-pulse"
                             >
-                                المرحلة التالية
+                                الانتقال للمرحلة التالية
                             </button>
                         )}
                     </div>
 
-                    {/* رسالة التأكيد المنبثقة */}
+                    {/* --- بداية التعديل: إضافة الرسالة المنبثقة --- */}
                     {showConfirmation && (
                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-2xl">
-                            <div className="bg-white p-8 rounded-xl shadow-2xl text-center">
+                            <div className="bg-white p-8 rounded-xl shadow-2xl text-center animate-fadeIn">
                                 <h3 className="text-2xl font-bold text-slate-800 mb-4">هل أنت متأكد أنك انتهيت؟</h3>
                                 <div className="flex justify-center gap-4">
                                     <button
@@ -153,10 +157,13 @@
                             </div>
                         </div>
                     )}
+                    {/* --- نهاية التعديل --- */}
                 </div>
             );
         };
         
+        // --- (باقي المكونات لم تتغير) ---
+
         // --- Settings Component: StageItem ---
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
             const [isEditing, setIsEditing] = useState(!stage.title);
