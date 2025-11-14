@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>موقع الألعاب التعليمية الشيق</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .font-heading {
+            font-family: 'Fredoka One', cursive;
+        }
+        .text-shadow-fun {
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.7), 4px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+    <!-- React Libraries -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel for JSX Transpilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- الخطافات والمكونات المفقودة (نسخ مؤقتة) ---
+        // !!! هام: الرجاء استبدال هذا الكود بالكود الفعلي الموجود في ملفاتك
+        
+        // مؤقت: useLocalStorage.js
+        const useLocalStorage = (key, initialValue) => {
+            const [storedValue, setStoredValue] = useState(() => {
+                try {
+                    const item = window.localStorage.getItem(key);
+                    return item ? JSON.parse(item) : initialValue;
+                } catch (error) {
+                    console.log(error);
+                    return initialValue;
+                }
+            });
+
+            const setValue = (value) => {
+                try {
+                    const valueToStore = value instanceof Function ? value(storedValue) : value;
+                    setStoredValue(valueToStore);
+                    window.localStorage.setItem(key, JSON.stringify(valueToStore));
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            return [storedValue, setValue];
+        };
+
+        // مؤقت: GameContainer.js
+        const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
+            if (currentStageIndex >= stages.length) {
+                return (
+                    <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl">
+                        <h2 className="text-4xl font-bold text-green-500 mb-4">🎉 تهانينا! لقد أكملت كل المراحل! 🎉</h2>
+                        <p className="text-xl">أداء رائع!</p>
+                    </div>
+                );
+            }
+            const currentStage = stages[currentStageIndex];
+            return (
+                <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-2xl">
+                    <h2 className="text-3xl font-bold mb-4">المرحلة {currentStageIndex + 1}: {currentStage.title}</h2>
+                    <p className="text-lg mb-6">هذا مجرد مثال لمكون اللعبة. المحتوى الفعلي يعتمد على تصميمك.</p>
+                    <p className="mb-4">نوع اللعبة: <strong>{currentStage.type}</strong></p>
+                    <button 
+                        onClick={onNextStage}
+                        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
+                    >
+                        الانتقال للمرحلة التالية
+                    </button>
+                </div>
+            );
+        };
+        
+        // مؤقت: SettingsPanel.js
+        const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
+            const [stagesText, setStagesText] = useState(JSON.stringify(initialStages, null, 2));
+
+            const handleSave = () => {
+                try {
+                    const newStages = JSON.parse(stagesText);
+                    onSave(newStages);
+                    alert('تم حفظ المراحل!');
+                } catch (e) {
+                    alert('خطأ في صيغة JSON. الرجاء المراجعة.');
+                }
+            };
+
+            return (
+                <div className="p-8 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-3xl">
+                    <h2 className="text-3xl font-bold mb-6 text-slate-700">لوحة تحكم المعلم</h2>
+                    <p className="mb-4 text-slate-600">
+                        أدخل إعدادات المراحل بصيغة JSON. كل عنصر في المصفوفة يمثل مرحلة.
+                    </p>
+                    <textarea 
+                        value={stagesText}
+                        onChange={(e) => setStagesText(e.target.value)}
+                        className="w-full h-64 p-3 font-mono text-sm border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
+                        dir="ltr"
+                    />
+                    <div className="flex justify-between items-center mt-6">
+                        <button onClick={handleSave} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                            حفظ التغييرات
+                        </button>
+                        <button onClick={onBackToGame} className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                            العودة للعبة
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- كود ملف App.js الأصلي ---
+        function App() {
+            const [stages, setStages] = useLocalStorage('wordwallStages', []);
+            const [view, setView] = useState('game');
+            const [currentStageIndex, setCurrentStageIndex] = useState(0);
+            const keySequenceRef = useRef('');
+
+            useEffect(() => {
+                const handleKeyDown = (e) => {
+                    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+                        return;
+                    }
+
+                    const adminKey = 'admin';
+                    keySequenceRef.current = (keySequenceRef.current + e.key.toLowerCase()).slice(-adminKey.length);
+
+                    if (keySequenceRef.current === adminKey) {
+                        setView('settings');
+                        keySequenceRef.current = '';
+                    }
+                };
+
+                window.addEventListener('keydown', handleKeyDown);
+
+                return () => {
+                    window.removeEventListener('keydown', handleKeyDown);
+                };
+            }, []);
+
+            const handleUpdateStages = (newStages) => {
+                setStages(newStages);
+            };
+            
+            const handleNextStage = () => {
+                if (currentStageIndex < stages.length) {
+                    setCurrentStageIndex(prev => prev + 1);
+                }
+            };
+
+            return (
+                <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 sm:p-6 flex flex-col items-center">
+                    <header className="w-full max-w-5xl mx-auto mb-6">
+                        <div className="flex justify-center items-center bg-white/50 backdrop-blur-sm p-3 rounded-full shadow-lg border-2 border-white">
+                            <h1 className="font-heading text-shadow-fun text-purple-600 text-2xl sm:text-3xl">
+                                مغامرة الألعاب التعليمية
+                            </h1>
+                        </div>
+                    </header>
+
+                    <main className="flex-grow w-full flex justify-center items-center">
+                        {view === 'settings' ? (
+                            <SettingsPanel 
+                                initialStages={stages}
+                                onSave={handleUpdateStages}
+                                onBackToGame={() => setView('game')}
+                            />
+                        ) : stages.length > 0 ? (
+                            <GameContainer 
+                                stages={stages}
+                                currentStageIndex={currentStageIndex}
+                                onNextStage={handleNextStage}
+                            />
+                        ) : (
+                            <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-4 border-white">
+                                <h1 className="text-5xl font-heading text-amber-500 text-shadow-fun mb-4">🚀 مرحباً بك! 🚀</h1>
+                                <p className="text-2xl font-bold text-slate-700">مغامرة الألعاب التعليمية جاهزة للبدء.</p>
+                                <p className="text-xl text-slate-600 mt-2">يبدو أنه لا توجد مراحل مُعدة بعد. يمكن للمعلم إضافة ألعاب جديدة.</p>
+                                <p className="text-sm text-slate-500 mt-4">(لفتح لوحة التحكم، اكتب كلمة "admin" باستخدام لوحة المفاتيح)</p>
+                            </div>
+                        )}
+                    </main>
+                    <footer className="w-full text-center p-4 mt-8">
+                        <p className="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة - [اسم مؤسستك]</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        // --- كود ملف index.js الأصلي ---
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        );
+
+    </script>
+</body>
+</html>
