@@ -54,6 +54,13 @@
 
         // --- Game Component: GameContainer ---
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
+            // دالة لاستخراج رابط 'src' من كود التضمين
+            const extractSrcFromEmbed = (embedCode) => {
+                if (!embedCode || typeof embedCode !== 'string') return null;
+                const match = embedCode.match(/src="([^"]+)"/);
+                return match ? match[1] : null;
+            };
+
             if (currentStageIndex >= stages.length) {
                 return (
                     <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl">
@@ -61,20 +68,26 @@
                     </div>
                 );
             }
+
             const currentStage = stages[currentStageIndex];
-            // بناء رابط اللعبة الكامل من الكود المدخل
-            const gameUrl = `https://wordwall.net/embed/play/${currentStage.code}`;
+            const gameUrl = extractSrcFromEmbed(currentStage.embedCode);
 
             return (
                 <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[75vh] flex flex-col">
                     <h2 className="text-3xl font-bold mb-4">المرحلة {currentStageIndex + 1}: {currentStage.title}</h2>
                     <div className="flex-grow w-full">
-                        <iframe 
-                            src={gameUrl} 
-                            className="w-full h-full border-4 border-purple-300 rounded-lg shadow-inner"
-                            frameBorder="0" 
-                            allowFullScreen
-                        ></iframe>
+                        {gameUrl ? (
+                            <iframe 
+                                src={gameUrl} 
+                                className="w-full h-full border-4 border-purple-300 rounded-lg shadow-inner"
+                                frameBorder="0" 
+                                allowFullScreen
+                            ></iframe>
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-red-100 text-red-700 border-4 border-red-300 rounded-lg">
+                                <p className="font-bold">خطأ: كود التضمين غير صحيح لهذه المرحلة.</p>
+                            </div>
+                        )}
                     </div>
                     <button 
                         onClick={onNextStage}
@@ -88,12 +101,12 @@
         
         // --- Settings Component: StageItem (مكون لإدارة كل مرحلة على حدة) ---
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
-            const [isEditing, setIsEditing] = useState(!stage.title); // وضع التعديل تلقائياً للمراحل الجديدة
+            const [isEditing, setIsEditing] = useState(!stage.title);
             const [tempStage, setTempStage] = useState(stage);
 
             const handleSave = () => {
-                if (tempStage.title.trim() === '' || tempStage.code.trim() === '') {
-                    alert('الرجاء ملء اسم المرحلة وكود اللعبة.');
+                if (tempStage.title.trim() === '' || tempStage.embedCode.trim() === '') {
+                    alert('الرجاء ملء اسم المرحلة وكود التضمين.');
                     return;
                 }
                 onUpdate(index, tempStage);
@@ -101,7 +114,7 @@
             };
 
             const handleCancel = () => {
-                if (!stage.title) { // إذا كانت مرحلة جديدة فارغة، احذفها عند الإلغاء
+                if (!stage.title && !stage.embedCode) {
                     onDelete(index);
                 } else {
                     setTempStage(stage);
@@ -110,7 +123,7 @@
             };
 
             return (
-                <div className="p-4 border border-slate-300 rounded-lg bg-slate-50 flex flex-col md:flex-row items-center gap-4">
+                <div className="p-4 border border-slate-300 rounded-lg bg-slate-50 flex flex-col md:flex-row items-start gap-4">
                     <div className="flex-grow w-full">
                         {isEditing ? (
                             <div className="space-y-3">
@@ -121,19 +134,18 @@
                                     className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
                                     placeholder="اسم المرحلة"
                                 />
-                                <input 
-                                    type="text"
-                                    value={tempStage.code}
-                                    onChange={(e) => setTempStage({...tempStage, code: e.target.value})}
-                                    className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
-                                    placeholder="كود اللعبة من رابط Wordwall"
+                                <textarea
+                                    value={tempStage.embedCode}
+                                    onChange={(e) => setTempStage({...tempStage, embedCode: e.target.value})}
+                                    className="w-full px-3 py-2 h-24 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 font-mono text-sm"
+                                    placeholder="الصق كود التضمين (embed code) هنا"
                                     dir="ltr"
                                 />
                             </div>
                         ) : (
                             <div>
                                 <h3 className="font-bold text-lg text-purple-800">{stage.title}</h3>
-                                <p className="text-sm text-slate-600 font-mono" dir="ltr">Code: {stage.code}</p>
+                                <p className="text-sm text-slate-500">تم إدخال كود التضمين.</p>
                             </div>
                         )}
                     </div>
@@ -159,20 +171,20 @@
             const [stages, setStages] = useState(initialStages);
 
             const handleAddStage = () => {
-                setStages([...stages, { title: '', code: '', type: 'wordwall' }]);
+                setStages([...stages, { title: '', embedCode: '', type: 'wordwall' }]);
             };
 
             const handleDeleteStage = (indexToDelete) => {
                 const newStages = stages.filter((_, index) => index !== indexToDelete);
                 setStages(newStages);
-                onSave(newStages); // الحفظ الفوري عند الحذف
+                onSave(newStages);
             };
             
             const handleUpdateStage = (index, updatedStage) => {
                 const newStages = [...stages];
                 newStages[index] = updatedStage;
                 setStages(newStages);
-                onSave(newStages); // الحفظ الفوري عند التحديث
+                onSave(newStages);
             };
 
             return (
@@ -180,7 +192,7 @@
                     <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-slate-800 text-center">لوحة تحكم المعلم</h2>
                     
                     <div className="space-y-4 max-h-[50vh] overflow-y-auto p-2">
-                        {stages.map((stage, index) => (
+                        {stages.length > 0 ? stages.map((stage, index) => (
                             <StageItem
                                 key={index}
                                 index={index}
@@ -188,7 +200,9 @@
                                 onUpdate={handleUpdateStage}
                                 onDelete={handleDeleteStage}
                             />
-                        ))}
+                        )) : (
+                            <p className="text-center text-slate-500 p-4">لا توجد مراحل حالياً. اضغط على "إضافة مرحلة جديدة" للبدء.</p>
+                        )}
                     </div>
                     
                     <div className="mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
