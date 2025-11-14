@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
 
     <!-- Custom Styles -->
     <style>
@@ -40,7 +40,7 @@
         const { useState, useEffect, useRef } = React;
 
         // --- الخطافات والمكونات المفقودة (نسخ مؤقتة) ---
-        // !!! هام: الرجاء استبدال هذا الكود بالكود الفعلي الموجود في ملفاتك
+        // !!! هام: الرجاء استبدال هذا الكود بالكود الفعلي لمكوناتك إذا كان لديك
         
         // مؤقت: useLocalStorage.js
         const useLocalStorage = (key, initialValue) => {
@@ -92,9 +92,21 @@
             );
         };
         
-        // مؤقت: SettingsPanel.js
+        // --- نسخة محدّثة من SettingsPanel.js لتطابق الصورة ---
         const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
-            const [stagesText, setStagesText] = useState(JSON.stringify(initialStages, null, 2));
+            // مثال افتراضي أكثر وضوحاً للمعلم
+            const placeholder = [
+              {
+                "type": "wordwall",
+                "title": "المرحلة الأولى: الفواكه",
+                "url": "https://wordwall.net/embed/play/12345/abc/def"
+              }
+            ];
+            
+            // استخدم المثال فقط إذا كانت المراحل الحالية فارغة
+            const initialText = initialStages && initialStages.length > 0 ? initialStages : placeholder;
+            const [stagesText, setStagesText] = useState(JSON.stringify(initialText, null, 2));
+
 
             const handleSave = () => {
                 try {
@@ -107,15 +119,17 @@
             };
 
             return (
-                <div className="p-8 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-3xl">
-                    <h2 className="text-3xl font-bold mb-6 text-slate-700">لوحة تحكم المعلم</h2>
-                    <p className="mb-4 text-slate-600">
+                <div className="p-6 sm:p-8 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-3xl border border-gray-200">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold mb-2 text-slate-800 text-center" style={{ fontFamily: "'Cairo', sans-serif", fontWeight: 800 }}>
+                        لوحة تحكم المعلم
+                    </h2>
+                    <p className="mb-6 text-slate-500 text-center">
                         أدخل إعدادات المراحل بصيغة JSON. كل عنصر في المصفوفة يمثل مرحلة.
                     </p>
                     <textarea 
                         value={stagesText}
                         onChange={(e) => setStagesText(e.target.value)}
-                        className="w-full h-64 p-3 font-mono text-sm border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
+                        className="w-full h-72 p-4 font-mono text-sm border-2 border-purple-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition shadow-inner bg-slate-50"
                         dir="ltr"
                     />
                     <div className="flex justify-between items-center mt-6">
@@ -170,7 +184,7 @@
             };
 
             return (
-                <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 sm:p-6 flex flex-col items-center">
+                <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 sm:p-6 flex flex-col items-center justify-center">
                     <header className="w-full max-w-5xl mx-auto mb-6">
                         <div className="flex justify-center items-center bg-white/50 backdrop-blur-sm p-3 rounded-full shadow-lg border-2 border-white">
                             <h1 className="font-heading text-shadow-fun text-purple-600 text-2xl sm:text-3xl">
