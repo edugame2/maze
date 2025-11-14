@@ -15,15 +15,9 @@
 
     <!-- Custom Styles -->
     <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-        }
-        .font-heading {
-            font-family: 'Fredoka One', cursive;
-        }
-        .text-shadow-fun {
-            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.7), 4px 4px 0px rgba(0, 0, 0, 0.1);
-        }
+        body { font-family: 'Cairo', sans-serif; }
+        .font-heading { font-family: 'Fredoka One', cursive; }
+        .text-shadow-fun { text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.7), 4px 4px 0px rgba(0, 0, 0, 0.1); }
     </style>
 
     <!-- React Libraries -->
@@ -59,7 +53,6 @@
         };
 
         // --- Game Component: GameContainer ---
-        // تم تحديثه ليستخدم "كود اللعبة" بدلاً من الرابط الكامل
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
             if (currentStageIndex >= stages.length) {
                 return (
@@ -69,18 +62,20 @@
                 );
             }
             const currentStage = stages[currentStageIndex];
-            // بناء الرابط الكامل من الكود
+            // بناء رابط اللعبة الكامل من الكود المدخل
             const gameUrl = `https://wordwall.net/embed/play/${currentStage.code}`;
 
             return (
-                <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[70vh] flex flex-col">
+                <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[75vh] flex flex-col">
                     <h2 className="text-3xl font-bold mb-4">المرحلة {currentStageIndex + 1}: {currentStage.title}</h2>
-                    <iframe 
-                        src={gameUrl} 
-                        className="w-full h-full border-4 border-purple-300 rounded-lg shadow-inner"
-                        frameBorder="0" 
-                        allowFullScreen
-                    ></iframe>
+                    <div className="flex-grow w-full">
+                        <iframe 
+                            src={gameUrl} 
+                            className="w-full h-full border-4 border-purple-300 rounded-lg shadow-inner"
+                            frameBorder="0" 
+                            allowFullScreen
+                        ></iframe>
+                    </div>
                     <button 
                         onClick={onNextStage}
                         className="mt-6 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
@@ -91,13 +86,12 @@
             );
         };
         
-        // --- Settings Component: StageItem (مكون جديد لإدارة كل مرحلة) ---
+        // --- Settings Component: StageItem (مكون لإدارة كل مرحلة على حدة) ---
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
-            const [isEditing, setIsEditing] = useState(false);
+            const [isEditing, setIsEditing] = useState(!stage.title); // وضع التعديل تلقائياً للمراحل الجديدة
             const [tempStage, setTempStage] = useState(stage);
 
             const handleSave = () => {
-                // التأكد من أن الحقول ليست فارغة قبل الحفظ
                 if (tempStage.title.trim() === '' || tempStage.code.trim() === '') {
                     alert('الرجاء ملء اسم المرحلة وكود اللعبة.');
                     return;
@@ -107,8 +101,12 @@
             };
 
             const handleCancel = () => {
-                setTempStage(stage); // إعادة البيانات للأصلية
-                setIsEditing(false);
+                if (!stage.title) { // إذا كانت مرحلة جديدة فارغة، احذفها عند الإلغاء
+                    onDelete(index);
+                } else {
+                    setTempStage(stage);
+                    setIsEditing(false);
+                }
             };
 
             return (
@@ -135,15 +133,15 @@
                         ) : (
                             <div>
                                 <h3 className="font-bold text-lg text-purple-800">{stage.title}</h3>
-                                <p className="text-sm text-slate-600" dir="ltr">Code: {stage.code}</p>
+                                <p className="text-sm text-slate-600 font-mono" dir="ltr">Code: {stage.code}</p>
                             </div>
                         )}
                     </div>
                     <div className="flex-shrink-0 flex items-center gap-2 w-full md:w-auto">
                         {isEditing ? (
                             <>
-                                <button onClick={handleSave} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg w-full">حفظ</button>
-                                <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg w-full">إلغاء</button>
+                                <button onClick={handleSave} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg flex-grow">حفظ</button>
+                                <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg flex-grow">إلغاء</button>
                             </>
                         ) : (
                             <>
@@ -156,29 +154,129 @@
             );
         };
 
-        // --- Settings Component: SettingsPanel (مُعاد بناؤه بالكامل) ---
+        // --- Settings Component: SettingsPanel (اللوحة الرئيسية للمعلم) ---
         const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
             const [stages, setStages] = useState(initialStages);
 
-            useEffect(() => {
-                // حفظ التغييرات عند أي تعديل على قائمة المراحل
-                onSave(stages);
-            }, [stages]);
-
             const handleAddStage = () => {
-                // إضافة مرحلة جديدة فارغة وجعلها في وضع التعديل مباشرة
                 setStages([...stages, { title: '', code: '', type: 'wordwall' }]);
             };
 
             const handleDeleteStage = (indexToDelete) => {
-                setStages(stages.filter((_, index) => index !== indexToDelete));
+                const newStages = stages.filter((_, index) => index !== indexToDelete);
+                setStages(newStages);
+                onSave(newStages); // الحفظ الفوري عند الحذف
             };
             
             const handleUpdateStage = (index, updatedStage) => {
                 const newStages = [...stages];
                 newStages[index] = updatedStage;
                 setStages(newStages);
+                onSave(newStages); // الحفظ الفوري عند التحديث
             };
 
             return (
-                <div className="p-
+                <div className="p-6 sm:p-8 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-200">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-slate-800 text-center">لوحة تحكم المعلم</h2>
+                    
+                    <div className="space-y-4 max-h-[50vh] overflow-y-auto p-2">
+                        {stages.map((stage, index) => (
+                            <StageItem
+                                key={index}
+                                index={index}
+                                stage={stage}
+                                onUpdate={handleUpdateStage}
+                                onDelete={handleDeleteStage}
+                            />
+                        ))}
+                    </div>
+                    
+                    <div className="mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <button 
+                            onClick={handleAddStage}
+                            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105"
+                        >
+                            + إضافة مرحلة جديدة
+                        </button>
+                        <button 
+                            onClick={onBackToGame} 
+                            className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-lg shadow-md"
+                        >
+                            العودة للعبة
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Main App Component ---
+        function App() {
+            const [stages, setStages] = useLocalStorage('wordwallStages', []);
+            const [view, setView] = useState('game');
+            const [currentStageIndex, setCurrentStageIndex] = useState(0);
+            const keySequenceRef = useRef('');
+
+            useEffect(() => {
+                const handleKeyDown = (e) => {
+                    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+                    const adminKey = 'admin';
+                    keySequenceRef.current = (keySequenceRef.current + e.key.toLowerCase()).slice(-adminKey.length);
+                    if (keySequenceRef.current === adminKey) {
+                        setView('settings');
+                        keySequenceRef.current = '';
+                    }
+                };
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, []);
+
+            const handleUpdateStages = (newStages) => {
+                setStages(newStages);
+            };
+            
+            const handleNextStage = () => {
+                setCurrentStageIndex(prev => prev + 1);
+            };
+
+            return (
+                <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 sm:p-6 flex flex-col items-center justify-center">
+                    <header className="w-full max-w-5xl mx-auto mb-6">
+                        <div className="flex justify-center items-center bg-white/50 backdrop-blur-sm p-3 rounded-full shadow-lg border-2 border-white">
+                            <h1 className="font-heading text-shadow-fun text-purple-600 text-2xl sm:text-3xl">مغامرة الألعاب التعليمية</h1>
+                        </div>
+                    </header>
+                    <main className="flex-grow w-full flex justify-center items-center">
+                        {view === 'settings' ? (
+                            <SettingsPanel 
+                                initialStages={stages}
+                                onSave={handleUpdateStages}
+                                onBackToGame={() => setView('game')}
+                            />
+                        ) : stages.length > 0 ? (
+                            <GameContainer 
+                                stages={stages}
+                                currentStageIndex={currentStageIndex}
+                                onNextStage={handleNextStage}
+                            />
+                        ) : (
+                            <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-4 border-white">
+                                <h1 className="text-5xl font-heading text-amber-500 text-shadow-fun mb-4">🚀 مرحباً بك! 🚀</h1>
+                                <p className="text-xl text-slate-600 mt-2">لا توجد مراحل مُعدة بعد. يمكن للمعلم إضافة ألعاب.</p>
+                                <p className="text-sm text-slate-500 mt-4">(لفتح لوحة التحكم، اكتب كلمة "admin" بلوحة المفاتيح)</p>
+                            </div>
+                        )}
+                    </main>
+                    <footer className="w-full text-center p-4 mt-auto">
+                        <p className="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة - [اسم مؤسستك]</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        // --- Root Rendering ---
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<React.StrictMode><App /></React.StrictMode>);
+    </script>
+</body>
+</html>
