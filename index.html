@@ -33,22 +33,21 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
         
-        // --- Custom Hook: useLocalStorage (نسخة أكثر أماناً) ---
+        // --- Custom Hook: useLocalStorage (نسخة آمنة) ---
         const useLocalStorage = (key, initialValue) => {
             const [storedValue, setStoredValue] = useState(() => {
                 try {
                     const item = window.localStorage.getItem(key);
                     if (item) {
                         const parsed = JSON.parse(item);
-                        // التأكد من أن البيانات المحفوظة هي مصفوفة
                         if (Array.isArray(parsed)) {
                             return parsed;
                         }
                     }
-                    return initialValue; // البدء بقيمة نظيفة إذا كانت البيانات غير صالحة
+                    return initialValue;
                 } catch (error) {
-                    console.error("Error reading from localStorage, clearing data:", error);
-                    window.localStorage.removeItem(key); // حذف البيانات التالفة
+                    console.error("Error reading localStorage, clearing data:", error);
+                    window.localStorage.removeItem(key);
                     return initialValue;
                 }
             });
@@ -81,7 +80,7 @@
                 );
             }
 
-            const currentStage = stages[currentStageIndex] || {}; // إضافة قيمة افتراضية للأمان
+            const currentStage = stages[currentStageIndex] || {};
             const gameUrl = extractSrcFromEmbed(currentStage.embedCode);
 
             return (
@@ -111,7 +110,7 @@
             );
         };
         
-        // --- Settings Component: StageItem ---
+        // --- Settings Component: StageItem (يحتوي على حقل اسم المرحلة وزر التعديل) ---
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
             const [isEditing, setIsEditing] = useState(!stage.title);
             const [tempStage, setTempStage] = useState(stage);
@@ -139,6 +138,7 @@
                     <div className="flex-grow w-full">
                         {isEditing ? (
                             <div className="space-y-3">
+                                {/* هذا هو حقل اسم المرحلة */}
                                 <input 
                                     type="text"
                                     value={tempStage.title}
@@ -169,6 +169,7 @@
                             </>
                         ) : (
                             <>
+                                {/* هذا هو زر تعديل المرحلة */}
                                 <button onClick={() => setIsEditing(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg w-1/2 md:w-auto">تعديل</button>
                                 <button onClick={() => onDelete(index)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg w-1/2 md:w-auto">حذف</button>
                             </>
@@ -258,7 +259,6 @@
                 setCurrentStageIndex(prev => prev + 1);
             };
 
-            // فلترة المراحل الصالحة فقط للعرض
             const validStages = Array.isArray(stages) ? stages.filter(s => s && s.embedCode && s.embedCode.trim() !== '') : [];
 
             return (
@@ -296,7 +296,7 @@
             );
         }
 
-        // --- Root Rendering (مع آلية التقاط الأخطاء) ---
+        // --- Root Rendering with Error Boundary ---
         const rootElement = document.getElementById('root');
         try {
             const root = ReactDOM.createRoot(rootElement);
@@ -305,7 +305,7 @@
             console.error("Fatal error rendering React app:", error);
             rootElement.innerHTML = `<div style="padding: 2rem; text-align: center; background-color: #fff3f3; color: #b91c1c;">
                 <h1 style="font-size: 1.5rem; font-weight: bold;">حدث خطأ في التطبيق</h1>
-                <p>لا يمكن تحميل التطبيق بسبب خطأ. الرجاء مسح بيانات الموقع والمحاولة مرة أخرى.</p>
+                <p>لا يمكن تحميل التطبيق. الرجاء محاولة مسح بيانات الموقع والمحاولة مرة أخرى.</p>
                 <pre style="margin-top: 1rem; padding: 1rem; background-color: #fee2e2; border-radius: 8px; text-align: left; direction: ltr;">${error.message}</pre>
             </div>`;
         }
