@@ -34,6 +34,17 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
         
+        // --- هذا الجزء سيحتوي على المراحل الأساسية للعبة ---
+        const stagesDataString = `/*STAGES_DATA_JSON*/[
+          {
+            "title": "المرحلة الأولى: مثال",
+            "gameUrl": "https://wordwall.net/embed/play/1024/299/659"
+          }
+        ]`;
+        
+        let initialStagesData = [];
+        try { initialStagesData = JSON.parse(stagesDataString.replace('/*STAGES_DATA_JSON*/','')); } catch(e) { console.error("Could not parse initial stages."); }
+
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
             const [isStageCompleted, setIsStageCompleted] = useState(false);
             const [showConfirmation, setShowConfirmation] = useState(false);
@@ -52,75 +63,84 @@
             );
         };
         
-        // --- لوحة التحكم الجديدة: مولّد الروابط ---
+        // --- لوحة التحكم الجديدة والمحسّنة ---
         const SettingsPanel = () => {
-            const template = `[
-  {
-    "title": "المرحلة الأولى: الفواكه",
-    "gameUrl": "https://wordwall.net/embed/play/1024/299/659"
-  },
-  {
-    "title": "المرحلة الثانية: الحيوانات",
-    "gameUrl": "https://wordwall.net/embed/play/2632/630/921"
-  }
-]`;
-            const [jsonText, setJsonText] = useState(template);
+            const [jsonText, setJsonText] = useState(JSON.stringify(initialStagesData, null, 2));
             const [generatedUrl, setGeneratedUrl] = useState('');
             const [copySuccess, setCopySuccess] = useState('');
 
-            const handleGenerate = () => {
+            // الخيار الأول: إنشاء رابط طويل للمشاركة السريعة
+            const handleGenerateLink = () => {
                 try {
-                    // التحقق من صحة البيانات
-                    JSON.parse(jsonText);
-                    // ترميز البيانات لجعلها آمنة للروابط
-                    const encodedData = btoa(unescape(encodeURIComponent(jsonText)));
+                    const data = JSON.parse(jsonText);
+                    const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
                     const baseUrl = window.location.origin + window.location.pathname;
                     setGeneratedUrl(`${baseUrl}#data=${encodedData}`);
                     setCopySuccess('');
-                } catch (error) {
-                    alert("خطأ في صيغة البيانات! الرجاء التأكد من الأقواس والفواصل.\n" + error.message);
-                }
+                } catch (error) { alert("خطأ في صيغة البيانات: " + error.message); }
             };
-            
+
+            // الخيار الثاني: تصدير ملف HTML للعبة الرسمية
+            const handleExportFile = () => {
+                try {
+                    const data = JSON.parse(jsonText);
+                    const newStagesJSON = JSON.stringify(data, null, 2);
+                    const fullPageHtml = document.documentElement.outerHTML;
+                    const newHtmlContent = fullPageHtml.replace(/const stagesDataString = `\/\*STAGES_DATA_JSON\*\/[\s\S]*?`;/, `const stagesDataString = \`/*STAGES_DATA_JSON*/${newStagesJSON}\`;`);
+                    const blob = new Blob([newHtmlContent], { type: 'text/html' });
+                    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click(); URL.revokeObjectURL(a.href);
+                    alert("تم تصدير ملف index.html بنجاح!\nالخطوة التالية: ارفع هذا الملف الجديد إلى GitHub.");
+                } catch (error) { alert("خطأ في صيغة البيانات: " + error.message); }
+            };
+
             const handleCopy = () => {
-                navigator.clipboard.writeText(generatedUrl).then(() => {
-                    setCopySuccess('تم النسخ بنجاح!');
-                    setTimeout(() => setCopySuccess(''), 2000);
-                }, () => {
-                    setCopySuccess('فشل النسخ.');
-                });
+                navigator.clipboard.writeText(generatedUrl).then(() => setCopySuccess('تم النسخ!'), () => setCopySuccess('فشل النسخ'));
             };
 
             return (
                 <div className="p-6 bg-white/95 rounded-2xl shadow-2xl w-full max-w-4xl">
-                    <h2 className="text-3xl font-extrabold mb-2 text-center">لوحة تحكم المعلم (مولّد الروابط)</h2>
-                    <p className="text-center text-slate-600 mb-6">
-                        الصق بيانات المراحل في الصندوق، ثم أنشئ رابطاً دائماً لمشاركته مع الطلاب.
-                    </p>
+                    <h2 className="text-3xl font-extrabold mb-4 text-center">لوحة تحكم المعلم</h2>
+                    <p className="text-center text-slate-600 mb-6">عدّل المراحل في الصندوق، ثم اختر الطريقة التي تناسبك.</p>
                     <textarea 
-                        className="w-full h-64 p-3 font-mono text-sm border-2 rounded-lg ltr"
+                        className="w-full h-48 p-3 font-mono text-sm border-2 rounded-lg ltr"
                         value={jsonText}
                         onChange={(e) => setJsonText(e.target.value)}
                         dir="ltr"
                     />
-                    <button 
-                        onClick={handleGenerate}
-                        className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-lg rounded-lg shadow-lg"
-                    >
-                        🚀 إنشاء رابط اللعبة الدائم
-                    </button>
                     
-                    {generatedUrl && (
-                        <div className="mt-6 p-4 border-t-2">
-                            <h3 className="text-lg font-bold">الرابط جاهز للمشاركة:</h3>
-                            <div className="flex items-center gap-2 mt-2">
-                                <input type="text" readOnly value={generatedUrl} className="w-full p-2 border rounded bg-slate-100 ltr" dir="ltr" />
-                                <button onClick={handleCopy} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg copy-button">
-                                    {copySuccess ? copySuccess : 'نسخ'}
-                                </button>
-                            </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                        {/* العمود الأيمن: الرابط السريع */}
+                        <div className="p-4 border rounded-lg">
+                            <h3 className="font-bold text-lg text-center">الخيار الأول: للمشاركة السريعة</h3>
+                            <button onClick={handleGenerateLink} className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg">
+                                إنشاء رابط سريع (طويل)
+                            </button>
+                            <p className="text-xs text-center text-slate-500 mt-2">
+                                مناسب للاختبار أو إرسال نسخة مؤقتة لزميل.
+                            </p>
+                            {generatedUrl && (
+                                <div className="mt-4">
+                                    <div className="flex items-center gap-2">
+                                        <input type="text" readOnly value={generatedUrl} className="w-full p-2 border rounded bg-slate-100 ltr" dir="ltr" />
+                                        <button onClick={handleCopy} className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-3 rounded-lg copy-button">
+                                            {copySuccess || 'نسخ'}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                    )}
+
+                        {/* العمود الأيسر: الملف النهائي */}
+                        <div className="p-4 border rounded-lg bg-green-50">
+                            <h3 className="font-bold text-lg text-center">الخيار الثاني: للعبة الرسمية</h3>
+                             <button onClick={handleExportFile} className="w-full mt-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded-lg">
+                                💾 تصدير الملف النهائي للرفع
+                            </button>
+                            <p className="text-xs text-center text-slate-500 mt-2">
+                                استخدم هذا الخيار لتحديث اللعبة على رابطك الأساسي القصير.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             );
         };
@@ -131,39 +151,38 @@
             const [currentStageIndex, setCurrentStageIndex] = useState(0);
             const keySequenceRef = useRef('');
 
-            // --- التعديل الرئيسي: قراءة البيانات من الرابط ---
             useEffect(() => {
+                let stagesFromUrl = null;
                 try {
                     const hash = window.location.hash;
                     if (hash && hash.startsWith('#data=')) {
-                        const encodedData = hash.substring(6);
-                        const decodedJson = decodeURIComponent(escape(atob(encodedData)));
-                        setStages(JSON.parse(decodedJson));
-                    } else {
-                        // لا توجد بيانات في الرابط، ابدأ فارغاً
-                        setStages([]);
+                        const encoded = hash.substring(6);
+                        const decoded = decodeURIComponent(escape(atob(encoded)));
+                        stagesFromUrl = JSON.parse(decoded);
                     }
-                } catch (error) {
-                    console.error("خطأ في قراءة البيانات من الرابط:", error);
-                    setStages([]); // في حالة الخطأ، لا تعرض أي شيء
-                }
+                } catch (e) { console.error("Could not read data from URL hash."); }
+                
+                // تحديد أي المراحل سيتم عرضها: من الرابط أولاً، ثم من الكود
+                setStages(stagesFromUrl || initialStagesData);
+
+                const h=(e)=>{if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;const k='admin';keySequenceRef.current=(keySequenceRef.current+e.key).slice(-k.length);if(keySequenceRef.current===k)setView('settings');};
+                window.addEventListener('keydown',h);
+                return ()=>window.removeEventListener('keydown',h);
             }, []);
-            
-            useEffect(() => { const h=(e)=>{if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;const k='admin';keySequenceRef.current=(keySequenceRef.current+e.key).slice(-k.length);if(keySequenceRef.current===k)setView('settings');}; window.addEventListener('keydown',h); return ()=>window.removeEventListener('keydown',h);},[]);
             
             const handleNextStage = () => setCurrentStageIndex(p => p + 1);
             
-            if (stages === null) {
-                return <div className="min-h-screen flex items-center justify-center bg-sky-400 text-white text-2xl font-bold">...جاري التحميل</div>
-            }
+            if (stages === null) return <div className="min-h-screen flex items-center justify-center bg-sky-400 text-white text-2xl font-bold">...جاري التحميل</div>;
+            
+            const validStages = Array.isArray(stages) ? stages.filter(s => s && s.gameUrl && s.gameUrl.trim() !== '') : [];
 
             return (
                 <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 flex flex-col items-center justify-center">
                     <header className="w-full max-w-5xl mx-auto mb-6"><div className="flex justify-center items-center bg-white/50 p-3 rounded-full shadow-lg"><h1 className="font-heading text-shadow-fun text-purple-600 text-3xl">مغامرة الألعاب التعليمية</h1></div></header>
                     <main className="flex-grow w-full flex justify-center items-center">
                         {view === 'settings' ? <SettingsPanel /> : 
-                         stages.length > 0 ? <GameContainer stages={stages} currentStageIndex={currentStageIndex} onNextStage={handleNextStage} /> : 
-                         <div className="text-center p-8 bg-white/80 rounded-2xl"><h1 className="text-5xl font-heading text-amber-500 mb-4">🚀 مرحباً بك! 🚀</h1><p className="text-xl mt-2">لا توجد مراحل مُعدة في هذا الرابط.</p><p className="mt-2">يمكن للمعلم استخدام لوحة التحكم لإنشاء رابط جديد.</p></div>}
+                         validStages.length > 0 ? <GameContainer stages={validStages} currentStageIndex={currentStageIndex} onNextStage={handleNextStage} /> : 
+                         <div className="text-center p-8 bg-white/80 rounded-2xl"><h1 className="text-5xl font-heading text-amber-500 mb-4">🚀 مرحباً بك! 🚀</h1><p className="text-xl mt-2">لا توجد مراحل مُعدة.</p><p className="mt-2">يمكن للمعلم استخدام لوحة التحكم لإنشاء لعبة جديدة.</p></div>}
                     </main>
                     <footer className="w-full text-center p-4 mt-auto"><p className="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة</p></footer>
                 </div>
