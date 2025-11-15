@@ -1,8 +1,8 @@
-<html lang="ar" dir="rtl"><head><style>body {transition: opacity ease-in 0.2s; } 
-body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
-</style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>موقع الألعاب التعليمية الشيق</title>
 
     <!-- Tailwind CSS -->
@@ -10,14 +10,15 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&amp;family=Fredoka+One&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
 
     <!-- Custom Styles -->
     <style>
         body { font-family: 'Cairo', sans-serif; }
         .font-heading { font-family: 'Fredoka One', cursive; }
         .text-shadow-fun { text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.7), 4px 4px 0px rgba(0, 0, 0, 0.1); }
+        .copy-button:active { transform: scale(0.95); }
     </style>
 
     <!-- React Libraries -->
@@ -26,448 +27,20 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
     <!-- Babel for JSX Transpilation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.mx-auto{margin-left:auto;margin-right:auto}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mt-2{margin-top:0.5rem}.mt-auto{margin-top:auto}.mt-6{margin-top:1.5rem}.flex{display:flex}.h-24{height:6rem}.max-h-\[50vh\]{max-height:50vh}.min-h-screen{min-height:100vh}.w-full{width:100%}.w-1\/2{width:50%}.max-w-5xl{max-width:64rem}.max-w-4xl{max-width:56rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-4{gap:1rem}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.overflow-y-auto{overflow-y:auto}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded{border-radius:0.25rem}.border{border-width:1px}.border-t{border-top-width:1px}.bg-white\/50{background-color:rgb(255 255 255 / 0.5)}.bg-white\/80{background-color:rgb(255 255 255 / 0.8)}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-red-500{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252 / var(--tw-bg-opacity, 1))}.bg-slate-600{--tw-bg-opacity:1;background-color:rgb(71 85 105 / var(--tw-bg-opacity, 1))}.bg-white\/95{background-color:rgb(255 255 255 / 0.95)}.bg-gray-500{--tw-bg-opacity:1;background-color:rgb(107 114 128 / var(--tw-bg-opacity, 1))}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.from-amber-200{--tw-gradient-from:#fde68a var(--tw-gradient-from-position);--tw-gradient-to:rgb(253 230 138 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-violet-300{--tw-gradient-to:rgb(196 181 253 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #c4b5fd var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-sky-400{--tw-gradient-to:#38bdf8 var(--tw-gradient-to-position)}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-8{padding:2rem}.p-2{padding:0.5rem}.p-6{padding:1.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pt-6{padding-top:1.5rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-5xl{font-size:3rem;line-height:1}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.text-amber-500{--tw-text-opacity:1;color:rgb(245 158 11 / var(--tw-text-opacity, 1))}.text-purple-600{--tw-text-opacity:1;color:rgb(147 51 234 / var(--tw-text-opacity, 1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59 / var(--tw-text-opacity, 1))}.text-white\/80{color:rgb(255 255 255 / 0.8)}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:bg-green-700:hover{--tw-bg-opacity:1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}@media (min-width: 640px){.sm\:w-auto{width:auto}.sm\:flex-row{flex-direction:row}}@media (min-width: 768px){.md\:w-auto{width:auto}.md\:flex-row{flex-direction:row}}</style><script>"use strict";
-
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var _React = React,
-  useState = _React.useState,
-  useEffect = _React.useEffect,
-  useRef = _React.useRef;
-
-// --- دالة مساعدة لاستخلاص الرابط النظيف من أي نص يتم لصقه ---
-var extractUrlFromPastedText = function extractUrlFromPastedText(pastedText) {
-  if (!pastedText || typeof pastedText !== 'string') return '';
-  var trimmedText = pastedText.trim();
-  // الحالة 1: المستخدم لصق كود iframe
-  var match = trimmedText.match(/src=['"]([^'"]+)['"]/i);
-  if (match && match[1]) return match[1];
-  // الحالة 2: المستخدم لصق رابط مباشر
-  if (trimmedText.startsWith('http')) {
-    return trimmedText.includes('/embed/') ? trimmedText : trimmedText.replace('/resource/', '/embed/');
-  }
-  return ''; // إرجاع نص فارغ إذا لم يتم العثور على رابط
-};
-
-// --- نظام تعريف المراحل الآمن ---
-var stagesDataString = "/*STAGES_DATA_JSON*/[\n          {\n            \"title\": \"\u0627\u0644\u0645\u0631\u062D\u0644\u0629 \u0627\u0644\u0623\u0648\u0644\u0649: \u0645\u062B\u0627\u0644\",\n            \"gameUrl\": \"https://wordwall.net/embed/play/1024/299/659\"\n          }\n        ]";
-var initialStagesData = [];
-try {
-  initialStagesData = JSON.parse(stagesDataString.replace('/*STAGES_DATA_JSON*/', ''));
-} catch (e) {
-  console.error("خطأ في قراءة المراحل الأساسية:", e);
-  initialStagesData = [];
-}
-var useLocalStorage = function useLocalStorage(key, initialValue) {
-  var _useState = useState(function () {
-      try {
-        var item = window.localStorage.getItem(key);
-        if (item) {
-          var parsed = JSON.parse(item);
-          if (Array.isArray(parsed)) return parsed;
-        }
-        return initialValue;
-      } catch (error) {
-        return initialValue;
-      }
-    }),
-    _useState2 = _slicedToArray(_useState, 2),
-    storedValue = _useState2[0],
-    setStoredValue = _useState2[1];
-  var setValue = function setValue(value) {
-    try {
-      var val = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(val);
-      window.localStorage.setItem(key, JSON.stringify(val));
-    } catch (error) {
-      console.error("Error writing to localStorage:", error);
-    }
-  };
-  return [storedValue, setValue];
-};
-var GameContainer = function GameContainer(_ref) {
-  var stages = _ref.stages,
-    currentStageIndex = _ref.currentStageIndex,
-    onNextStage = _ref.onNextStage;
-  var _useState3 = useState(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    isStageCompleted = _useState4[0],
-    setIsStageCompleted = _useState4[1];
-  var _useState5 = useState(false),
-    _useState6 = _slicedToArray(_useState5, 2),
-    showConfirmation = _useState6[0],
-    setShowConfirmation = _useState6[1];
-  useEffect(function () {
-    setIsStageCompleted(false);
-    setShowConfirmation(false);
-  }, [currentStageIndex]);
-  if (currentStageIndex >= stages.length) return /*#__PURE__*/React.createElement("div", {
-    className: "text-center p-8 bg-white/80 rounded-2xl"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "text-4xl font-bold text-green-500"
-  }, "\uD83C\uDF89 \u062A\u0647\u0627\u0646\u064A\u0646\u0627! \u0644\u0642\u062F \u0623\u0643\u0645\u0644\u062A \u0643\u0644 \u0627\u0644\u0645\u0631\u0627\u062D\u0644! \uD83C\uDF89"));
-  var currentStage = stages[currentStageIndex] || {};
-  var gameUrl = currentStage.gameUrl; // --- تم التبسيط: استخدام الرابط مباشرة ---
-  var handleConfirm = function handleConfirm(c) {
-    if (c) setIsStageCompleted(true);
-    setShowConfirmation(false);
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "relative text-center p-6 bg-white/80 rounded-2xl w-full max-w-4xl h-[75vh] flex flex-col"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "text-3xl font-bold mb-4"
-  }, "\u0627\u0644\u0645\u0631\u062D\u0644\u0629 ", currentStageIndex + 1, ": ", currentStage.title), /*#__PURE__*/React.createElement("div", {
-    className: "flex-grow w-full"
-  }, gameUrl ? /*#__PURE__*/React.createElement("iframe", {
-    src: gameUrl,
-    className: "w-full h-full border-4 border-purple-300 rounded-lg",
-    frameBorder: "0",
-    allowFullScreen: true
-  }) : /*#__PURE__*/React.createElement("div", {
-    className: "w-full h-full flex items-center justify-center bg-red-100 rounded-lg"
-  }, /*#__PURE__*/React.createElement("p", null, "\u062E\u0637\u0623: \u0627\u0644\u0631\u0627\u0628\u0637 \u063A\u064A\u0631 \u0635\u062D\u064A\u062D."))), /*#__PURE__*/React.createElement("div", {
-    className: "mt-6"
-  }, !isStageCompleted ? /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setShowConfirmation(true);
-    },
-    className: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full"
-  }, "\u0644\u0642\u062F \u0627\u0646\u062A\u0647\u064A\u062A") : /*#__PURE__*/React.createElement("button", {
-    onClick: onNextStage,
-    className: "bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full animate-pulse"
-  }, "\u0627\u0644\u062A\u0627\u0644\u064A")), showConfirmation && /*#__PURE__*/React.createElement("div", {
-    className: "absolute inset-0 bg-black/50 flex items-center justify-center rounded-2xl"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-white p-8 rounded-xl"
-  }, /*#__PURE__*/React.createElement("h3", {
-    className: "text-2xl font-bold mb-4"
-  }, "\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F\u061F"), /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-center gap-4"
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return handleConfirm(true);
-    },
-    className: "bg-green-500 text-white py-2 px-8 rounded-lg"
-  }, "\u0646\u0639\u0645"), /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return handleConfirm(false);
-    },
-    className: "bg-gray-500 text-white py-2 px-8 rounded-lg"
-  }, "\u0644\u0627")))));
-};
-var StageItem = function StageItem(_ref2) {
-  var stage = _ref2.stage,
-    index = _ref2.index,
-    onUpdate = _ref2.onUpdate,
-    onDelete = _ref2.onDelete;
-  var _useState7 = useState(!stage.title),
-    _useState8 = _slicedToArray(_useState7, 2),
-    isEditing = _useState8[0],
-    setIsEditing = _useState8[1];
-  var _useState9 = useState(stage.title),
-    _useState0 = _slicedToArray(_useState9, 2),
-    title = _useState0[0],
-    setTitle = _useState0[1];
-  var _useState1 = useState(stage.gameUrl),
-    _useState10 = _slicedToArray(_useState1, 2),
-    pastedCode = _useState10[0],
-    setPastedCode = _useState10[1]; // نعرض الرابط إذا كان موجوداً
-
-  var handlePastedCodeChange = function handlePastedCodeChange(e) {
-    setPastedCode(e.target.value);
-  };
-  var handleSave = function handleSave() {
-    if (!title.trim() || !pastedCode.trim()) {
-      alert('يرجى ملء الحقول.');
-      return;
-    }
-    var gameUrl = extractUrlFromPastedText(pastedCode);
-    if (!gameUrl) {
-      alert('لم يتم العثور على رابط صحيح. الرجاء لصق كود التضمين أو الرابط المباشر.');
-      return;
-    }
-    onUpdate(index, {
-      title: title,
-      gameUrl: gameUrl
-    });
-    setIsEditing(false);
-  };
-  var handleCancel = function handleCancel() {
-    if (!stage.title) {
-      onDelete(index);
-    } else {
-      setIsEditing(false);
-    }
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "p-4 border rounded-lg bg-slate-50 flex flex-col md:flex-row items-start gap-4"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex-grow w-full"
-  }, isEditing ? /*#__PURE__*/React.createElement("div", {
-    className: "space-y-3"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    value: title,
-    onChange: function onChange(e) {
-      return setTitle(e.target.value);
-    },
-    className: "w-full p-2 border rounded",
-    placeholder: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0631\u062D\u0644\u0629"
-  }), /*#__PURE__*/React.createElement("textarea", {
-    value: pastedCode,
-    onChange: handlePastedCodeChange,
-    className: "w-full p-2 h-24 border rounded font-mono",
-    placeholder: "\u0627\u0644\u0635\u0642 \u0643\u0648\u062F \u0627\u0644\u062A\u0636\u0645\u064A\u0646 \u0623\u0648 \u0627\u0644\u0631\u0627\u0628\u0637 \u0647\u0646\u0627",
-    dir: "ltr"
-  })) : /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    className: "font-bold text-lg text-purple-800"
-  }, stage.title), /*#__PURE__*/React.createElement("p", {
-    className: "text-sm text-slate-500",
-    dir: "ltr"
-  }, stage.gameUrl))), /*#__PURE__*/React.createElement("div", {
-    className: "flex-shrink-0 flex items-center gap-2 w-full md:w-auto"
-  }, isEditing ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
-    onClick: handleSave,
-    className: "bg-green-500 text-white py-2 px-4 rounded-lg w-full"
-  }, "\u062D\u0641\u0638"), /*#__PURE__*/React.createElement("button", {
-    onClick: handleCancel,
-    className: "bg-gray-500 text-white py-2 px-4 rounded-lg w-full"
-  }, "\u0625\u0644\u063A\u0627\u0621")) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setIsEditing(true);
-    },
-    className: "bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2"
-  }, "\u062A\u0639\u062F\u064A\u0644"), /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return onDelete(index);
-    },
-    className: "bg-red-500 text-white py-2 px-4 rounded-lg w-1/2"
-  }, "\u062D\u0630\u0641"))));
-};
-var SettingsPanel = function SettingsPanel(_ref3) {
-  var initialStages = _ref3.initialStages,
-    onSave = _ref3.onSave,
-    onBackToGame = _ref3.onBackToGame;
-  var _useState11 = useState(initialStages),
-    _useState12 = _slicedToArray(_useState11, 2),
-    stages = _useState12[0],
-    setStages = _useState12[1];
-  var handleAdd = function handleAdd() {
-    return setStages([].concat(_toConsumableArray(stages), [{
-      title: '',
-      gameUrl: ''
-    }]));
-  };
-  var handleDelete = function handleDelete(i) {
-    return setStages(stages.filter(function (_, idx) {
-      return i !== idx;
-    }));
-  };
-  var handleUpdate = function handleUpdate(i, u) {
-    var n = _toConsumableArray(stages);
-    n[i] = u;
-    setStages(n);
-  };
-  useEffect(function () {
-    onSave(stages);
-  }, [stages]);
-  var handleExport = function handleExport() {
-    var newStagesJSON = JSON.stringify(stages, null, 2);
-    var fullPageHtml = document.documentElement.outerHTML;
-    var newHtmlContent = fullPageHtml.replace(/const stagesDataString = `\/\*STAGES_DATA_JSON\*\/[\s\S]*?`;/, "const stagesDataString = `/*STAGES_DATA_JSON*/[
-  {
-    "title": "المرحلة الأولى : اسمى الحيوان",
-    "gameUrl": "https://wordwall.net/embed/15601e217899426ea6d1303083189505?themeId=66&templateId=49&fontStackId=0"
-  },
-  {
-    "title": "أنظر وأعبر",
-    "gameUrl": "https://wordwall.net/embed/105bc4705c0e4da887b244a09f92da40?themeId=23&templateId=49&fontStackId=1"
-  },
-  {
-    "title": "أصل الصورة بما يكملها",
-    "gameUrl": "https://wordwall.net/embed/5852fdd2f963452a96dffff70f8ddd74?themeId=26&templateId=49&fontStackId=0"
-  }
-]`;"));
-    var blob = new Blob([newHtmlContent], {
-      type: 'text/html'
-    });
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'index.html';
-    a.click();
-    URL.revokeObjectURL(a.href);
-    alert("تم تصدير ملف index.html الجديد بنجاح!\nالخطوة التالية: ارفع هذا الملف إلى GitHub ليحل محل الملف القديم.");
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "p-6 bg-white/95 rounded-2xl shadow-2xl w-full max-w-4xl"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "text-3xl font-extrabold mb-6 text-center"
-  }, "\u0644\u0648\u062D\u0629 \u062A\u062D\u0643\u0645 \u0627\u0644\u0645\u0639\u0644\u0645"), /*#__PURE__*/React.createElement("div", {
-    className: "space-y-4 max-h-[50vh] overflow-y-auto p-2"
-  }, stages.map(function (s, i) {
-    return /*#__PURE__*/React.createElement(StageItem, {
-      key: i,
-      index: i,
-      stage: s,
-      onUpdate: handleUpdate,
-      onDelete: handleDelete
-    });
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4"
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: handleAdd,
-    className: "w-full sm:w-auto bg-slate-600 text-white py-2 px-6 rounded-lg"
-  }, "+ \u0625\u0636\u0627\u0641\u0629 \u0645\u0631\u062D\u0644\u0629"), /*#__PURE__*/React.createElement("button", {
-    onClick: handleExport,
-    className: "w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg"
-  }, "\uD83D\uDCBE \u062A\u0635\u062F\u064A\u0631 \u0645\u0644\u0641 \u0627\u0644\u0644\u0639\u0628\u0629 \u0627\u0644\u062C\u062F\u064A\u062F \u0644\u0644\u0631\u0641\u0639"), /*#__PURE__*/React.createElement("button", {
-    onClick: onBackToGame,
-    className: "w-full sm:w-auto bg-amber-500 text-white py-2 px-6 rounded-lg"
-  }, "\u0627\u0644\u0639\u0648\u062F\u0629 \u0644\u0644\u0639\u0628\u0629")));
-};
-function App() {
-  var _useLocalStorage = useLocalStorage('wordwallStages', initialStagesData),
-    _useLocalStorage2 = _slicedToArray(_useLocalStorage, 2),
-    stages = _useLocalStorage2[0],
-    setStages = _useLocalStorage2[1];
-  var _useState13 = useState('game'),
-    _useState14 = _slicedToArray(_useState13, 2),
-    view = _useState14[0],
-    setView = _useState14[1];
-  var _useState15 = useState(0),
-    _useState16 = _slicedToArray(_useState15, 2),
-    currentStageIndex = _useState16[0],
-    setCurrentStageIndex = _useState16[1];
-  var keySequenceRef = useRef('');
-  useEffect(function () {
-    var h = function h(e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      var k = 'admin';
-      keySequenceRef.current = (keySequenceRef.current + e.key).slice(-k.length);
-      if (keySequenceRef.current === k) setView('settings');
-    };
-    window.addEventListener('keydown', h);
-    return function () {
-      return window.removeEventListener('keydown', h);
-    };
-  }, []);
-  var handleUpdateStages = function handleUpdateStages(s) {
-    return setStages(s);
-  };
-  var handleNextStage = function handleNextStage() {
-    return setCurrentStageIndex(function (p) {
-      return p + 1;
-    });
-  };
-  var validStages = Array.isArray(stages) ? stages.filter(function (s) {
-    return s && s.gameUrl && s.gameUrl.trim() !== '';
-  }) : [];
-  return /*#__PURE__*/React.createElement("div", {
-    className: "bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 flex flex-col items-center justify-center"
-  }, /*#__PURE__*/React.createElement("header", {
-    className: "w-full max-w-5xl mx-auto mb-6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-center items-center bg-white/50 p-3 rounded-full shadow-lg"
-  }, /*#__PURE__*/React.createElement("h1", {
-    className: "font-heading text-shadow-fun text-purple-600 text-3xl"
-  }, "\u0645\u063A\u0627\u0645\u0631\u0629 \u0627\u0644\u0623\u0644\u0639\u0627\u0628 \u0627\u0644\u062A\u0639\u0644\u064A\u0645\u064A\u0629"))), /*#__PURE__*/React.createElement("main", {
-    className: "flex-grow w-full flex justify-center items-center"
-  }, view === 'settings' ? /*#__PURE__*/React.createElement(SettingsPanel, {
-    initialStages: stages,
-    onSave: handleUpdateStages,
-    onBackToGame: function onBackToGame() {
-      return setView('game');
-    }
-  }) : validStages.length > 0 ? /*#__PURE__*/React.createElement(GameContainer, {
-    stages: validStages,
-    currentStageIndex: currentStageIndex,
-    onNextStage: handleNextStage
-  }) : /*#__PURE__*/React.createElement("div", {
-    className: "text-center p-8 bg-white/80 rounded-2xl"
-  }, /*#__PURE__*/React.createElement("h1", {
-    className: "text-5xl font-heading text-amber-500 mb-4"
-  }, "\uD83D\uDE80 \u0645\u0631\u062D\u0628\u0627\u064B \u0628\u0643! \uD83D\uDE80"), /*#__PURE__*/React.createElement("p", {
-    className: "text-xl mt-2"
-  }, "\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u0631\u0627\u062D\u0644 \u0645\u064F\u0639\u062F\u0629."))), /*#__PURE__*/React.createElement("footer", {
-    className: "w-full text-center p-4 mt-auto"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "text-white/80 text-sm"
-  }, "\xA9 2024 \u062C\u0645\u064A\u0639 \u0627\u0644\u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638\u0629")));
-}
-ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(App, null)));
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJfUmVhY3QiLCJSZWFjdCIsInVzZVN0YXRlIiwidXNlRWZmZWN0IiwidXNlUmVmIiwiZXh0cmFjdFVybEZyb21QYXN0ZWRUZXh0IiwicGFzdGVkVGV4dCIsInRyaW1tZWRUZXh0IiwidHJpbSIsIm1hdGNoIiwic3RhcnRzV2l0aCIsImluY2x1ZGVzIiwicmVwbGFjZSIsInN0YWdlc0RhdGFTdHJpbmciLCJpbml0aWFsU3RhZ2VzRGF0YSIsIkpTT04iLCJwYXJzZSIsImUiLCJjb25zb2xlIiwiZXJyb3IiLCJ1c2VMb2NhbFN0b3JhZ2UiLCJrZXkiLCJpbml0aWFsVmFsdWUiLCJfdXNlU3RhdGUiLCJpdGVtIiwid2luZG93IiwibG9jYWxTdG9yYWdlIiwiZ2V0SXRlbSIsInBhcnNlZCIsIkFycmF5IiwiaXNBcnJheSIsIl91c2VTdGF0ZTIiLCJfc2xpY2VkVG9BcnJheSIsInN0b3JlZFZhbHVlIiwic2V0U3RvcmVkVmFsdWUiLCJzZXRWYWx1ZSIsInZhbHVlIiwidmFsIiwiRnVuY3Rpb24iLCJzZXRJdGVtIiwic3RyaW5naWZ5IiwiR2FtZUNvbnRhaW5lciIsIl9yZWYiLCJzdGFnZXMiLCJjdXJyZW50U3RhZ2VJbmRleCIsIm9uTmV4dFN0YWdlIiwiX3VzZVN0YXRlMyIsIl91c2VTdGF0ZTQiLCJpc1N0YWdlQ29tcGxldGVkIiwic2V0SXNTdGFnZUNvbXBsZXRlZCIsIl91c2VTdGF0ZTUiLCJfdXNlU3RhdGU2Iiwic2hvd0NvbmZpcm1hdGlvbiIsInNldFNob3dDb25maXJtYXRpb24iLCJsZW5ndGgiLCJjcmVhdGVFbGVtZW50IiwiY2xhc3NOYW1lIiwiY3VycmVudFN0YWdlIiwiZ2FtZVVybCIsImhhbmRsZUNvbmZpcm0iLCJjIiwidGl0bGUiLCJzcmMiLCJmcmFtZUJvcmRlciIsImFsbG93RnVsbFNjcmVlbiIsIm9uQ2xpY2siLCJTdGFnZUl0ZW0iLCJfcmVmMiIsInN0YWdlIiwiaW5kZXgiLCJvblVwZGF0ZSIsIm9uRGVsZXRlIiwiX3VzZVN0YXRlNyIsIl91c2VTdGF0ZTgiLCJpc0VkaXRpbmciLCJzZXRJc0VkaXRpbmciLCJfdXNlU3RhdGU5IiwiX3VzZVN0YXRlMCIsInNldFRpdGxlIiwiX3VzZVN0YXRlMSIsIl91c2VTdGF0ZTEwIiwicGFzdGVkQ29kZSIsInNldFBhc3RlZENvZGUiLCJoYW5kbGVQYXN0ZWRDb2RlQ2hhbmdlIiwidGFyZ2V0IiwiaGFuZGxlU2F2ZSIsImFsZXJ0IiwiaGFuZGxlQ2FuY2VsIiwidHlwZSIsIm9uQ2hhbmdlIiwicGxhY2Vob2xkZXIiLCJkaXIiLCJGcmFnbWVudCIsIlNldHRpbmdzUGFuZWwiLCJfcmVmMyIsImluaXRpYWxTdGFnZXMiLCJvblNhdmUiLCJvbkJhY2tUb0dhbWUiLCJfdXNlU3RhdGUxMSIsIl91c2VTdGF0ZTEyIiwic2V0U3RhZ2VzIiwiaGFuZGxlQWRkIiwiY29uY2F0IiwiX3RvQ29uc3VtYWJsZUFycmF5IiwiaGFuZGxlRGVsZXRlIiwiaSIsImZpbHRlciIsIl8iLCJpZHgiLCJoYW5kbGVVcGRhdGUiLCJ1IiwibiIsImhhbmRsZUV4cG9ydCIsIm5ld1N0YWdlc0pTT04iLCJmdWxsUGFnZUh0bWwiLCJkb2N1bWVudCIsImRvY3VtZW50RWxlbWVudCIsIm91dGVySFRNTCIsIm5ld0h0bWxDb250ZW50IiwiYmxvYiIsIkJsb2IiLCJhIiwiaHJlZiIsIlVSTCIsImNyZWF0ZU9iamVjdFVSTCIsImRvd25sb2FkIiwiY2xpY2siLCJyZXZva2VPYmplY3RVUkwiLCJtYXAiLCJzIiwiQXBwIiwiX3VzZUxvY2FsU3RvcmFnZSIsIl91c2VMb2NhbFN0b3JhZ2UyIiwiX3VzZVN0YXRlMTMiLCJfdXNlU3RhdGUxNCIsInZpZXciLCJzZXRWaWV3IiwiX3VzZVN0YXRlMTUiLCJfdXNlU3RhdGUxNiIsInNldEN1cnJlbnRTdGFnZUluZGV4Iiwia2V5U2VxdWVuY2VSZWYiLCJoIiwidGFnTmFtZSIsImsiLCJjdXJyZW50Iiwic2xpY2UiLCJhZGRFdmVudExpc3RlbmVyIiwicmVtb3ZlRXZlbnRMaXN0ZW5lciIsImhhbmRsZVVwZGF0ZVN0YWdlcyIsImhhbmRsZU5leHRTdGFnZSIsInAiLCJ2YWxpZFN0YWdlcyIsIlJlYWN0RE9NIiwiY3JlYXRlUm9vdCIsImdldEVsZW1lbnRCeUlkIiwicmVuZGVyIiwiU3RyaWN0TW9kZSJdLCJzb3VyY2VzIjpbIklubGluZSBCYWJlbCBzY3JpcHQiXSwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgICAgIGNvbnN0IHsgdXNlU3RhdGUsIHVzZUVmZmVjdCwgdXNlUmVmIH0gPSBSZWFjdDtcbiAgICAgICAgXG4gICAgICAgIC8vIC0tLSDYr9in2YTYqSDZhdiz2KfYudiv2Kkg2YTYp9iz2KrYrtmE2KfYtSDYp9mE2LHYp9io2Lcg2KfZhNmG2LjZitmBINmF2YYg2KPZiiDZhti1INmK2KrZhSDZhNi12YLZhyAtLS1cbiAgICAgICAgY29uc3QgZXh0cmFjdFVybEZyb21QYXN0ZWRUZXh0ID0gKHBhc3RlZFRleHQpID0+IHtcbiAgICAgICAgICAgIGlmICghcGFzdGVkVGV4dCB8fCB0eXBlb2YgcGFzdGVkVGV4dCAhPT0gJ3N0cmluZycpIHJldHVybiAnJztcbiAgICAgICAgICAgIGNvbnN0IHRyaW1tZWRUZXh0ID0gcGFzdGVkVGV4dC50cmltKCk7XG4gICAgICAgICAgICAvLyDYp9mE2K3Yp9mE2KkgMTog2KfZhNmF2LPYqtiu2K/ZhSDZhNi12YIg2YPZiNivIGlmcmFtZVxuICAgICAgICAgICAgY29uc3QgbWF0Y2ggPSB0cmltbWVkVGV4dC5tYXRjaCgvc3JjPVsnXCJdKFteJ1wiXSspWydcIl0vaSk7XG4gICAgICAgICAgICBpZiAobWF0Y2ggJiYgbWF0Y2hbMV0pIHJldHVybiBtYXRjaFsxXTtcbiAgICAgICAgICAgIC8vINin2YTYrdin2YTYqSAyOiDYp9mE2YXYs9iq2K7Yr9mFINmE2LXZgiDYsdin2KjYtyDZhdio2KfYtNixXG4gICAgICAgICAgICBpZiAodHJpbW1lZFRleHQuc3RhcnRzV2l0aCgnaHR0cCcpKSB7XG4gICAgICAgICAgICAgICAgcmV0dXJuIHRyaW1tZWRUZXh0LmluY2x1ZGVzKCcvZW1iZWQvJykgPyB0cmltbWVkVGV4dCA6IHRyaW1tZWRUZXh0LnJlcGxhY2UoJy9yZXNvdXJjZS8nLCAnL2VtYmVkLycpO1xuICAgICAgICAgICAgfVxuICAgICAgICAgICAgcmV0dXJuICcnOyAvLyDYpdix2KzYp9i5INmG2LUg2YHYp9ix2Log2KXYsNinINmE2YUg2YrYqtmFINin2YTYudir2YjYsSDYudmE2Ykg2LHYp9io2LdcbiAgICAgICAgfTtcblxuICAgICAgICAvLyAtLS0g2YbYuNin2YUg2KrYudix2YrZgSDYp9mE2YXYsdin2K3ZhCDYp9mE2KLZhdmGIC0tLVxuICAgICAgICBjb25zdCBzdGFnZXNEYXRhU3RyaW5nID0gYC8qU1RBR0VTX0RBVEFfSlNPTiovW1xuICAgICAgICAgIHtcbiAgICAgICAgICAgIFwidGl0bGVcIjogXCLYp9mE2YXYsdit2YTYqSDYp9mE2KPZiNmE2Yk6INmF2KvYp9mEXCIsXG4gICAgICAgICAgICBcImdhbWVVcmxcIjogXCJodHRwczovL3dvcmR3YWxsLm5ldC9lbWJlZC9wbGF5LzEwMjQvMjk5LzY1OVwiXG4gICAgICAgICAgfVxuICAgICAgICBdYDtcbiAgICAgICAgXG4gICAgICAgIGxldCBpbml0aWFsU3RhZ2VzRGF0YSA9IFtdO1xuICAgICAgICB0cnkge1xuICAgICAgICAgICAgaW5pdGlhbFN0YWdlc0RhdGEgPSBKU09OLnBhcnNlKHN0YWdlc0RhdGFTdHJpbmcucmVwbGFjZSgnLypTVEFHRVNfREFUQV9KU09OKi8nLCcnKSk7XG4gICAgICAgIH0gY2F0Y2goZSkge1xuICAgICAgICAgICAgY29uc29sZS5lcnJvcihcItiu2LfYoyDZgdmKINmC2LHYp9ih2Kkg2KfZhNmF2LHYp9it2YQg2KfZhNij2LPYp9iz2YrYqTpcIiwgZSk7XG4gICAgICAgICAgICBpbml0aWFsU3RhZ2VzRGF0YSA9IFtdO1xuICAgICAgICB9XG5cbiAgICAgICAgY29uc3QgdXNlTG9jYWxTdG9yYWdlID0gKGtleSwgaW5pdGlhbFZhbHVlKSA9PiB7XG4gICAgICAgICAgICBjb25zdCBbc3RvcmVkVmFsdWUsIHNldFN0b3JlZFZhbHVlXSA9IHVzZVN0YXRlKCgpID0+IHtcbiAgICAgICAgICAgICAgICB0cnkge1xuICAgICAgICAgICAgICAgICAgICBjb25zdCBpdGVtID0gd2luZG93LmxvY2FsU3RvcmFnZS5nZXRJdGVtKGtleSk7XG4gICAgICAgICAgICAgICAgICAgIGlmIChpdGVtKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBwYXJzZWQgPSBKU09OLnBhcnNlKGl0ZW0pO1xuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKEFycmF5LmlzQXJyYXkocGFyc2VkKSkgcmV0dXJuIHBhcnNlZDtcbiAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICByZXR1cm4gaW5pdGlhbFZhbHVlO1xuICAgICAgICAgICAgICAgIH0gY2F0Y2ggKGVycm9yKSB7IHJldHVybiBpbml0aWFsVmFsdWU7IH1cbiAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgY29uc3Qgc2V0VmFsdWUgPSAodmFsdWUpID0+IHtcbiAgICAgICAgICAgICAgICB0cnkge1xuICAgICAgICAgICAgICAgICAgICBjb25zdCB2YWwgPSB2YWx1ZSBpbnN0YW5jZW9mIEZ1bmN0aW9uID8gdmFsdWUoc3RvcmVkVmFsdWUpIDogdmFsdWU7XG4gICAgICAgICAgICAgICAgICAgIHNldFN0b3JlZFZhbHVlKHZhbCk7XG4gICAgICAgICAgICAgICAgICAgIHdpbmRvdy5sb2NhbFN0b3JhZ2Uuc2V0SXRlbShrZXksIEpTT04uc3RyaW5naWZ5KHZhbCkpO1xuICAgICAgICAgICAgICAgIH0gY2F0Y2ggKGVycm9yKSB7IGNvbnNvbGUuZXJyb3IoXCJFcnJvciB3cml0aW5nIHRvIGxvY2FsU3RvcmFnZTpcIiwgZXJyb3IpOyB9XG4gICAgICAgICAgICB9O1xuICAgICAgICAgICAgcmV0dXJuIFtzdG9yZWRWYWx1ZSwgc2V0VmFsdWVdO1xuICAgICAgICB9O1xuXG4gICAgICAgIGNvbnN0IEdhbWVDb250YWluZXIgPSAoeyBzdGFnZXMsIGN1cnJlbnRTdGFnZUluZGV4LCBvbk5leHRTdGFnZSB9KSA9PiB7XG4gICAgICAgICAgICBjb25zdCBbaXNTdGFnZUNvbXBsZXRlZCwgc2V0SXNTdGFnZUNvbXBsZXRlZF0gPSB1c2VTdGF0ZShmYWxzZSk7XG4gICAgICAgICAgICBjb25zdCBbc2hvd0NvbmZpcm1hdGlvbiwgc2V0U2hvd0NvbmZpcm1hdGlvbl0gPSB1c2VTdGF0ZShmYWxzZSk7XG4gICAgICAgICAgICB1c2VFZmZlY3QoKCkgPT4geyBzZXRJc1N0YWdlQ29tcGxldGVkKGZhbHNlKTsgc2V0U2hvd0NvbmZpcm1hdGlvbihmYWxzZSk7IH0sIFtjdXJyZW50U3RhZ2VJbmRleF0pO1xuICAgICAgICAgICAgaWYgKGN1cnJlbnRTdGFnZUluZGV4ID49IHN0YWdlcy5sZW5ndGgpIHJldHVybiA8ZGl2IGNsYXNzTmFtZT1cInRleHQtY2VudGVyIHAtOCBiZy13aGl0ZS84MCByb3VuZGVkLTJ4bFwiPjxoMiBjbGFzc05hbWU9XCJ0ZXh0LTR4bCBmb250LWJvbGQgdGV4dC1ncmVlbi01MDBcIj7wn46JINiq2YfYp9mG2YrZhtinISDZhNmC2K8g2KPZg9mF2YTYqiDZg9mEINin2YTZhdix2KfYrdmEISDwn46JPC9oMj48L2Rpdj47XG4gICAgICAgICAgICBjb25zdCBjdXJyZW50U3RhZ2UgPSBzdGFnZXNbY3VycmVudFN0YWdlSW5kZXhdIHx8IHt9O1xuICAgICAgICAgICAgY29uc3QgZ2FtZVVybCA9IGN1cnJlbnRTdGFnZS5nYW1lVXJsOyAvLyAtLS0g2KrZhSDYp9mE2KrYqNiz2YrYtzog2KfYs9iq2K7Yr9in2YUg2KfZhNix2KfYqNi3INmF2KjYp9i02LHYqSAtLS1cbiAgICAgICAgICAgIGNvbnN0IGhhbmRsZUNvbmZpcm0gPSAoYykgPT4geyBpZihjKSBzZXRJc1N0YWdlQ29tcGxldGVkKHRydWUpOyBzZXRTaG93Q29uZmlybWF0aW9uKGZhbHNlKTsgfTtcbiAgICAgICAgICAgIHJldHVybiAoXG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJyZWxhdGl2ZSB0ZXh0LWNlbnRlciBwLTYgYmctd2hpdGUvODAgcm91bmRlZC0yeGwgdy1mdWxsIG1heC13LTR4bCBoLVs3NXZoXSBmbGV4IGZsZXgtY29sXCI+XG4gICAgICAgICAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9XCJ0ZXh0LTN4bCBmb250LWJvbGQgbWItNFwiPtin2YTZhdix2K3ZhNipIHtjdXJyZW50U3RhZ2VJbmRleCArIDF9OiB7Y3VycmVudFN0YWdlLnRpdGxlfTwvaDI+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleC1ncm93IHctZnVsbFwiPntnYW1lVXJsID8gPGlmcmFtZSBzcmM9e2dhbWVVcmx9IGNsYXNzTmFtZT1cInctZnVsbCBoLWZ1bGwgYm9yZGVyLTQgYm9yZGVyLXB1cnBsZS0zMDAgcm91bmRlZC1sZ1wiIGZyYW1lQm9yZGVyPVwiMFwiIGFsbG93RnVsbFNjcmVlbj48L2lmcmFtZT4gOiA8ZGl2IGNsYXNzTmFtZT1cInctZnVsbCBoLWZ1bGwgZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgYmctcmVkLTEwMCByb3VuZGVkLWxnXCI+PHA+2K7Yt9ijOiDYp9mE2LHYp9io2Lcg2LrZitixINi12K3ZititLjwvcD48L2Rpdj59PC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibXQtNlwiPnshaXNTdGFnZUNvbXBsZXRlZCA/IDxidXR0b24gb25DbGljaz17KCkgPT4gc2V0U2hvd0NvbmZpcm1hdGlvbih0cnVlKX0gY2xhc3NOYW1lPVwiYmctYmx1ZS02MDAgaG92ZXI6YmctYmx1ZS03MDAgdGV4dC13aGl0ZSBmb250LWJvbGQgcHktMyBweC04IHJvdW5kZWQtZnVsbFwiPtmE2YLYryDYp9mG2KrZh9mK2Ko8L2J1dHRvbj4gOiA8YnV0dG9uIG9uQ2xpY2s9e29uTmV4dFN0YWdlfSBjbGFzc05hbWU9XCJiZy1wdXJwbGUtNjAwIGhvdmVyOmJnLXB1cnBsZS03MDAgdGV4dC13aGl0ZSBmb250LWJvbGQgcHktMyBweC04IHJvdW5kZWQtZnVsbCBhbmltYXRlLXB1bHNlXCI+2KfZhNiq2KfZhNmKPC9idXR0b24+fTwvZGl2PlxuICAgICAgICAgICAgICAgICAgICB7c2hvd0NvbmZpcm1hdGlvbiAmJiA8ZGl2IGNsYXNzTmFtZT1cImFic29sdXRlIGluc2V0LTAgYmctYmxhY2svNTAgZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgcm91bmRlZC0yeGxcIj48ZGl2IGNsYXNzTmFtZT1cImJnLXdoaXRlIHAtOCByb3VuZGVkLXhsXCI+PGgzIGNsYXNzTmFtZT1cInRleHQtMnhsIGZvbnQtYm9sZCBtYi00XCI+2YfZhCDYo9mG2Kog2YXYqtij2YPYr9ifPC9oMz48ZGl2IGNsYXNzTmFtZT1cImZsZXgganVzdGlmeS1jZW50ZXIgZ2FwLTRcIj48YnV0dG9uIG9uQ2xpY2s9eygpID0+IGhhbmRsZUNvbmZpcm0odHJ1ZSl9IGNsYXNzTmFtZT1cImJnLWdyZWVuLTUwMCB0ZXh0LXdoaXRlIHB5LTIgcHgtOCByb3VuZGVkLWxnXCI+2YbYudmFPC9idXR0b24+PGJ1dHRvbiBvbkNsaWNrPXsoKSA9PiBoYW5kbGVDb25maXJtKGZhbHNlKX0gY2xhc3NOYW1lPVwiYmctZ3JheS01MDAgdGV4dC13aGl0ZSBweS0yIHB4LTggcm91bmRlZC1sZ1wiPtmE2Kc8L2J1dHRvbj48L2Rpdj48L2Rpdj48L2Rpdj59XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICApO1xuICAgICAgICB9O1xuICAgICAgICBcbiAgICAgICAgY29uc3QgU3RhZ2VJdGVtID0gKHsgc3RhZ2UsIGluZGV4LCBvblVwZGF0ZSwgb25EZWxldGUgfSkgPT4ge1xuICAgICAgICAgICAgY29uc3QgW2lzRWRpdGluZywgc2V0SXNFZGl0aW5nXSA9IHVzZVN0YXRlKCFzdGFnZS50aXRsZSk7XG4gICAgICAgICAgICBjb25zdCBbdGl0bGUsIHNldFRpdGxlXSA9IHVzZVN0YXRlKHN0YWdlLnRpdGxlKTtcbiAgICAgICAgICAgIGNvbnN0IFtwYXN0ZWRDb2RlLCBzZXRQYXN0ZWRDb2RlXSA9IHVzZVN0YXRlKHN0YWdlLmdhbWVVcmwpOyAvLyDZhti52LHYtiDYp9mE2LHYp9io2Lcg2KXYsNinINmD2KfZhiDZhdmI2KzZiNiv2KfZi1xuXG4gICAgICAgICAgICBjb25zdCBoYW5kbGVQYXN0ZWRDb2RlQ2hhbmdlID0gKGUpID0+IHtcbiAgICAgICAgICAgICAgICBzZXRQYXN0ZWRDb2RlKGUudGFyZ2V0LnZhbHVlKTtcbiAgICAgICAgICAgIH07XG4gICAgICAgICAgICBcbiAgICAgICAgICAgIGNvbnN0IGhhbmRsZVNhdmUgPSAoKSA9PiB7XG4gICAgICAgICAgICAgICAgaWYgKCF0aXRsZS50cmltKCkgfHwgIXBhc3RlZENvZGUudHJpbSgpKSB7IGFsZXJ0KCfZitix2KzZiSDZhdmE2KEg2KfZhNit2YLZiNmELicpOyByZXR1cm47IH1cbiAgICAgICAgICAgICAgICBjb25zdCBnYW1lVXJsID0gZXh0cmFjdFVybEZyb21QYXN0ZWRUZXh0KHBhc3RlZENvZGUpO1xuICAgICAgICAgICAgICAgIGlmICghZ2FtZVVybCkge1xuICAgICAgICAgICAgICAgICAgICBhbGVydCgn2YTZhSDZitiq2YUg2KfZhNi52KvZiNixINi52YTZiSDYsdin2KjYtyDYtdit2YrYrS4g2KfZhNix2KzYp9ihINmE2LXZgiDZg9mI2K8g2KfZhNiq2LbZhdmK2YYg2KPZiCDYp9mE2LHYp9io2Lcg2KfZhNmF2KjYp9i02LEuJyk7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgb25VcGRhdGUoaW5kZXgsIHsgdGl0bGU6IHRpdGxlLCBnYW1lVXJsOiBnYW1lVXJsIH0pO1xuICAgICAgICAgICAgICAgIHNldElzRWRpdGluZyhmYWxzZSk7XG4gICAgICAgICAgICB9O1xuXG4gICAgICAgICAgICBjb25zdCBoYW5kbGVDYW5jZWwgPSAoKSA9PiB7IGlmICghc3RhZ2UudGl0bGUpIHsgb25EZWxldGUoaW5kZXgpOyB9IGVsc2UgeyBzZXRJc0VkaXRpbmcoZmFsc2UpOyB9IH07XG4gICAgICAgICAgICBcbiAgICAgICAgICAgIHJldHVybiAoXG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJwLTQgYm9yZGVyIHJvdW5kZWQtbGcgYmctc2xhdGUtNTAgZmxleCBmbGV4LWNvbCBtZDpmbGV4LXJvdyBpdGVtcy1zdGFydCBnYXAtNFwiPlxuICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImZsZXgtZ3JvdyB3LWZ1bGxcIj57aXNFZGl0aW5nID8gPGRpdiBjbGFzc05hbWU9XCJzcGFjZS15LTNcIj48aW5wdXQgdHlwZT1cInRleHRcIiB2YWx1ZT17dGl0bGV9IG9uQ2hhbmdlPXsoZSk9PnNldFRpdGxlKGUudGFyZ2V0LnZhbHVlKX0gY2xhc3NOYW1lPVwidy1mdWxsIHAtMiBib3JkZXIgcm91bmRlZFwiIHBsYWNlaG9sZGVyPVwi2KfYs9mFINin2YTZhdix2K3ZhNipXCIvPjx0ZXh0YXJlYSB2YWx1ZT17cGFzdGVkQ29kZX0gb25DaGFuZ2U9e2hhbmRsZVBhc3RlZENvZGVDaGFuZ2V9IGNsYXNzTmFtZT1cInctZnVsbCBwLTIgaC0yNCBib3JkZXIgcm91bmRlZCBmb250LW1vbm9cIiBwbGFjZWhvbGRlcj1cItin2YTYtdmCINmD2YjYryDYp9mE2KrYttmF2YrZhiDYo9mIINin2YTYsdin2KjYtyDZh9mG2KdcIiBkaXI9XCJsdHJcIi8+PC9kaXY+IDogPGRpdj48aDMgY2xhc3NOYW1lPVwiZm9udC1ib2xkIHRleHQtbGcgdGV4dC1wdXJwbGUtODAwXCI+e3N0YWdlLnRpdGxlfTwvaDM+PHAgY2xhc3NOYW1lPVwidGV4dC1zbSB0ZXh0LXNsYXRlLTUwMFwiIGRpcj1cImx0clwiPntzdGFnZS5nYW1lVXJsfTwvcD48L2Rpdj59PC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleC1zaHJpbmstMCBmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiB3LWZ1bGwgbWQ6dy1hdXRvXCI+e2lzRWRpdGluZyA/IDw+PGJ1dHRvbiBvbkNsaWNrPXtoYW5kbGVTYXZlfSBjbGFzc05hbWU9XCJiZy1ncmVlbi01MDAgdGV4dC13aGl0ZSBweS0yIHB4LTQgcm91bmRlZC1sZyB3LWZ1bGxcIj7YrdmB2Lg8L2J1dHRvbj48YnV0dG9uIG9uQ2xpY2s9e2hhbmRsZUNhbmNlbH0gY2xhc3NOYW1lPVwiYmctZ3JheS01MDAgdGV4dC13aGl0ZSBweS0yIHB4LTQgcm91bmRlZC1sZyB3LWZ1bGxcIj7YpdmE2LrYp9ihPC9idXR0b24+PC8+IDogPD48YnV0dG9uIG9uQ2xpY2s9eygpPT5zZXRJc0VkaXRpbmcodHJ1ZSl9IGNsYXNzTmFtZT1cImJnLWJsdWUtNTAwIHRleHQtd2hpdGUgcHktMiBweC00IHJvdW5kZWQtbGcgdy0xLzJcIj7Yqti52K/ZitmEPC9idXR0b24+PGJ1dHRvbiBvbkNsaWNrPXsoKT0+b25EZWxldGUoaW5kZXgpfSBjbGFzc05hbWU9XCJiZy1yZWQtNTAwIHRleHQtd2hpdGUgcHktMiBweC00IHJvdW5kZWQtbGcgdy0xLzJcIj7Yrdiw2YE8L2J1dHRvbj48Lz59PC9kaXY+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICApO1xuICAgICAgICB9O1xuXG4gICAgICAgIGNvbnN0IFNldHRpbmdzUGFuZWwgPSAoeyBpbml0aWFsU3RhZ2VzLCBvblNhdmUsIG9uQmFja1RvR2FtZSB9KSA9PiB7XG4gICAgICAgICAgICBjb25zdCBbc3RhZ2VzLCBzZXRTdGFnZXNdID0gdXNlU3RhdGUoaW5pdGlhbFN0YWdlcyk7XG4gICAgICAgICAgICBjb25zdCBoYW5kbGVBZGQgPSAoKSA9PiBzZXRTdGFnZXMoWy4uLnN0YWdlcywgeyB0aXRsZTogJycsIGdhbWVVcmw6ICcnIH1dKTtcbiAgICAgICAgICAgIGNvbnN0IGhhbmRsZURlbGV0ZSA9IChpKSA9PiBzZXRTdGFnZXMoc3RhZ2VzLmZpbHRlcigoXyxpZHgpPT5pIT09aWR4KSk7XG4gICAgICAgICAgICBjb25zdCBoYW5kbGVVcGRhdGUgPSAoaSwgdSkgPT4geyBjb25zdCBuPVsuLi5zdGFnZXNdOyBuW2ldPXU7IHNldFN0YWdlcyhuKTsgfTtcbiAgICAgICAgICAgIHVzZUVmZmVjdCgoKSA9PiB7IG9uU2F2ZShzdGFnZXMpOyB9LCBbc3RhZ2VzXSk7XG5cbiAgICAgICAgICAgIGNvbnN0IGhhbmRsZUV4cG9ydCA9ICgpID0+IHtcbiAgICAgICAgICAgICAgICBjb25zdCBuZXdTdGFnZXNKU09OID0gSlNPTi5zdHJpbmdpZnkoc3RhZ2VzLCBudWxsLCAyKTtcbiAgICAgICAgICAgICAgICBjb25zdCBmdWxsUGFnZUh0bWwgPSBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQub3V0ZXJIVE1MO1xuICAgICAgICAgICAgICAgIGNvbnN0IG5ld0h0bWxDb250ZW50ID0gZnVsbFBhZ2VIdG1sLnJlcGxhY2UoL2NvbnN0IHN0YWdlc0RhdGFTdHJpbmcgPSBgXFwvXFwqU1RBR0VTX0RBVEFfSlNPTlxcKlxcL1tcXHNcXFNdKj9gOy8sIGBjb25zdCBzdGFnZXNEYXRhU3RyaW5nID0gXFxgLypTVEFHRVNfREFUQV9KU09OKi8ke25ld1N0YWdlc0pTT059XFxgO2ApO1xuICAgICAgICAgICAgICAgIGNvbnN0IGJsb2IgPSBuZXcgQmxvYihbbmV3SHRtbENvbnRlbnRdLCB7IHR5cGU6ICd0ZXh0L2h0bWwnIH0pO1xuICAgICAgICAgICAgICAgIGNvbnN0IGEgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdhJyk7IGEuaHJlZiA9IFVSTC5jcmVhdGVPYmplY3RVUkwoYmxvYik7IGEuZG93bmxvYWQgPSAnaW5kZXguaHRtbCc7IGEuY2xpY2soKTsgVVJMLnJldm9rZU9iamVjdFVSTChhLmhyZWYpO1xuICAgICAgICAgICAgICAgIGFsZXJ0KFwi2KrZhSDYqti12K/ZitixINmF2YTZgSBpbmRleC5odG1sINin2YTYrNiv2YrYryDYqNmG2KzYp9itIVxcbtin2YTYrti32YjYqSDYp9mE2KrYp9mE2YrYqTog2KfYsdmB2Lkg2YfYsNinINin2YTZhdmE2YEg2KXZhNmJIEdpdEh1YiDZhNmK2K3ZhCDZhdit2YQg2KfZhNmF2YTZgSDYp9mE2YLYr9mK2YUuXCIpO1xuICAgICAgICAgICAgfTtcblxuICAgICAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInAtNiBiZy13aGl0ZS85NSByb3VuZGVkLTJ4bCBzaGFkb3ctMnhsIHctZnVsbCBtYXgtdy00eGxcIj5cbiAgICAgICAgICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT1cInRleHQtM3hsIGZvbnQtZXh0cmFib2xkIG1iLTYgdGV4dC1jZW50ZXJcIj7ZhNmI2K3YqSDYqtit2YPZhSDYp9mE2YXYudmE2YU8L2gyPlxuICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInNwYWNlLXktNCBtYXgtaC1bNTB2aF0gb3ZlcmZsb3cteS1hdXRvIHAtMlwiPntzdGFnZXMubWFwKChzLCBpKSA9PiA8U3RhZ2VJdGVtIGtleT17aX0gaW5kZXg9e2l9IHN0YWdlPXtzfSBvblVwZGF0ZT17aGFuZGxlVXBkYXRlfSBvbkRlbGV0ZT17aGFuZGxlRGVsZXRlfSAvPil9PC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibXQtNiBib3JkZXItdCBwdC02IGZsZXggZmxleC1jb2wgc206ZmxleC1yb3cganVzdGlmeS1iZXR3ZWVuIGl0ZW1zLWNlbnRlciBnYXAtNFwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXtoYW5kbGVBZGR9IGNsYXNzTmFtZT1cInctZnVsbCBzbTp3LWF1dG8gYmctc2xhdGUtNjAwIHRleHQtd2hpdGUgcHktMiBweC02IHJvdW5kZWQtbGdcIj4rINil2LbYp9mB2Kkg2YXYsdit2YTYqTwvYnV0dG9uPlxuICAgICAgICAgICAgICAgICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXtoYW5kbGVFeHBvcnR9IGNsYXNzTmFtZT1cInctZnVsbCBzbTp3LWF1dG8gYmctZ3JlZW4tNjAwIGhvdmVyOmJnLWdyZWVuLTcwMCB0ZXh0LXdoaXRlIGZvbnQtYm9sZCBweS0zIHB4LTggcm91bmRlZC1sZyBzaGFkb3ctbGdcIj7wn5K+INiq2LXYr9mK2LEg2YXZhNmBINin2YTZhNi52KjYqSDYp9mE2KzYr9mK2K8g2YTZhNix2YHYuTwvYnV0dG9uPlxuICAgICAgICAgICAgICAgICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXtvbkJhY2tUb0dhbWV9IGNsYXNzTmFtZT1cInctZnVsbCBzbTp3LWF1dG8gYmctYW1iZXItNTAwIHRleHQtd2hpdGUgcHktMiBweC02IHJvdW5kZWQtbGdcIj7Yp9mE2LnZiNiv2Kkg2YTZhNi52KjYqTwvYnV0dG9uPlxuICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICk7XG4gICAgICAgIH07XG5cbiAgICAgICAgZnVuY3Rpb24gQXBwKCkge1xuICAgICAgICAgICAgY29uc3QgW3N0YWdlcywgc2V0U3RhZ2VzXSA9IHVzZUxvY2FsU3RvcmFnZSgnd29yZHdhbGxTdGFnZXMnLCBpbml0aWFsU3RhZ2VzRGF0YSk7XG4gICAgICAgICAgICBjb25zdCBbdmlldywgc2V0Vmlld10gPSB1c2VTdGF0ZSgnZ2FtZScpO1xuICAgICAgICAgICAgY29uc3QgW2N1cnJlbnRTdGFnZUluZGV4LCBzZXRDdXJyZW50U3RhZ2VJbmRleF0gPSB1c2VTdGF0ZSgwKTtcbiAgICAgICAgICAgIGNvbnN0IGtleVNlcXVlbmNlUmVmID0gdXNlUmVmKCcnKTtcbiAgICAgICAgICAgIHVzZUVmZmVjdCgoKSA9PiB7IGNvbnN0IGg9KGUpPT57aWYoZS50YXJnZXQudGFnTmFtZT09PSdJTlBVVCd8fGUudGFyZ2V0LnRhZ05hbWU9PT0nVEVYVEFSRUEnKXJldHVybjtjb25zdCBrPSdhZG1pbic7a2V5U2VxdWVuY2VSZWYuY3VycmVudD0oa2V5U2VxdWVuY2VSZWYuY3VycmVudCtlLmtleSkuc2xpY2UoLWsubGVuZ3RoKTtpZihrZXlTZXF1ZW5jZVJlZi5jdXJyZW50PT09aylzZXRWaWV3KCdzZXR0aW5ncycpO307IHdpbmRvdy5hZGRFdmVudExpc3RlbmVyKCdrZXlkb3duJyxoKTsgcmV0dXJuICgpPT53aW5kb3cucmVtb3ZlRXZlbnRMaXN0ZW5lcigna2V5ZG93bicsaCk7fSxbXSk7XG4gICAgICAgICAgICBjb25zdCBoYW5kbGVVcGRhdGVTdGFnZXMgPSAocykgPT4gc2V0U3RhZ2VzKHMpO1xuICAgICAgICAgICAgY29uc3QgaGFuZGxlTmV4dFN0YWdlID0gKCkgPT4gc2V0Q3VycmVudFN0YWdlSW5kZXgocCA9PiBwICsgMSk7XG4gICAgICAgICAgICBjb25zdCB2YWxpZFN0YWdlcyA9IEFycmF5LmlzQXJyYXkoc3RhZ2VzKSA/IHN0YWdlcy5maWx0ZXIocyA9PiBzICYmIHMuZ2FtZVVybCAmJiBzLmdhbWVVcmwudHJpbSgpICE9PSAnJykgOiBbXTtcblxuICAgICAgICAgICAgcmV0dXJuIChcbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImJnLWdyYWRpZW50LXRvLWJyIGZyb20tYW1iZXItMjAwIHZpYS12aW9sZXQtMzAwIHRvLXNreS00MDAgbWluLWgtc2NyZWVuIHRleHQtc2xhdGUtODAwIHAtNCBmbGV4IGZsZXgtY29sIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlclwiPlxuICAgICAgICAgICAgICAgICAgICA8aGVhZGVyIGNsYXNzTmFtZT1cInctZnVsbCBtYXgtdy01eGwgbXgtYXV0byBtYi02XCI+PGRpdiBjbGFzc05hbWU9XCJmbGV4IGp1c3RpZnktY2VudGVyIGl0ZW1zLWNlbnRlciBiZy13aGl0ZS81MCBwLTMgcm91bmRlZC1mdWxsIHNoYWRvdy1sZ1wiPjxoMSBjbGFzc05hbWU9XCJmb250LWhlYWRpbmcgdGV4dC1zaGFkb3ctZnVuIHRleHQtcHVycGxlLTYwMCB0ZXh0LTN4bFwiPtmF2LrYp9mF2LHYqSDYp9mE2KPZhNi52KfYqCDYp9mE2KrYudmE2YrZhdmK2Kk8L2gxPjwvZGl2PjwvaGVhZGVyPlxuICAgICAgICAgICAgICAgICAgICA8bWFpbiBjbGFzc05hbWU9XCJmbGV4LWdyb3cgdy1mdWxsIGZsZXgganVzdGlmeS1jZW50ZXIgaXRlbXMtY2VudGVyXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICB7dmlldz09PSdzZXR0aW5ncycgPyA8U2V0dGluZ3NQYW5lbCBpbml0aWFsU3RhZ2VzPXtzdGFnZXN9IG9uU2F2ZT17aGFuZGxlVXBkYXRlU3RhZ2VzfSBvbkJhY2tUb0dhbWU9eygpPT5zZXRWaWV3KCdnYW1lJyl9Lz4gOiBcbiAgICAgICAgICAgICAgICAgICAgICAgICB2YWxpZFN0YWdlcy5sZW5ndGg+MCA/IDxHYW1lQ29udGFpbmVyIHN0YWdlcz17dmFsaWRTdGFnZXN9IGN1cnJlbnRTdGFnZUluZGV4PXtjdXJyZW50U3RhZ2VJbmRleH0gb25OZXh0U3RhZ2U9e2hhbmRsZU5leHRTdGFnZX0vPiA6IFxuICAgICAgICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwidGV4dC1jZW50ZXIgcC04IGJnLXdoaXRlLzgwIHJvdW5kZWQtMnhsXCI+PGgxIGNsYXNzTmFtZT1cInRleHQtNXhsIGZvbnQtaGVhZGluZyB0ZXh0LWFtYmVyLTUwMCBtYi00XCI+8J+agCDZhdix2K3YqNin2Ysg2KjZgyEg8J+agDwvaDE+PHAgY2xhc3NOYW1lPVwidGV4dC14bCBtdC0yXCI+2YTYpyDYqtmI2KzYryDZhdix2KfYrdmEINmF2Y/Yudiv2KkuPC9wPjwvZGl2Pn1cbiAgICAgICAgICAgICAgICAgICAgPC9tYWluPlxuICAgICAgICAgICAgICAgICAgICA8Zm9vdGVyIGNsYXNzTmFtZT1cInctZnVsbCB0ZXh0LWNlbnRlciBwLTQgbXQtYXV0b1wiPjxwIGNsYXNzTmFtZT1cInRleHQtd2hpdGUvODAgdGV4dC1zbVwiPsKpIDIwMjQg2KzZhdmK2Lkg2KfZhNit2YLZiNmCINmF2K3ZgdmI2LjYqTwvcD48L2Zvb3Rlcj5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICk7XG4gICAgICAgIH1cblxuICAgICAgICBSZWFjdERPTS5jcmVhdGVSb290KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyb290JykpLnJlbmRlcig8UmVhY3QuU3RyaWN0TW9kZT48QXBwIC8+PC9SZWFjdC5TdHJpY3RNb2RlPik7XG4gICAgIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFDUSxJQUFBQSxNQUFBLEdBQXdDQyxLQUFLO0VBQXJDQyxRQUFRLEdBQUFGLE1BQUEsQ0FBUkUsUUFBUTtFQUFFQyxTQUFTLEdBQUFILE1BQUEsQ0FBVEcsU0FBUztFQUFFQyxNQUFNLEdBQUFKLE1BQUEsQ0FBTkksTUFBTTs7QUFFbkM7QUFDQSxJQUFNQyx3QkFBd0IsR0FBRyxTQUEzQkEsd0JBQXdCQSxDQUFJQyxVQUFVLEVBQUs7RUFDN0MsSUFBSSxDQUFDQSxVQUFVLElBQUksT0FBT0EsVUFBVSxLQUFLLFFBQVEsRUFBRSxPQUFPLEVBQUU7RUFDNUQsSUFBTUMsV0FBVyxHQUFHRCxVQUFVLENBQUNFLElBQUksQ0FBQyxDQUFDO0VBQ3JDO0VBQ0EsSUFBTUMsS0FBSyxHQUFHRixXQUFXLENBQUNFLEtBQUssQ0FBQyx1QkFBdUIsQ0FBQztFQUN4RCxJQUFJQSxLQUFLLElBQUlBLEtBQUssQ0FBQyxDQUFDLENBQUMsRUFBRSxPQUFPQSxLQUFLLENBQUMsQ0FBQyxDQUFDO0VBQ3RDO0VBQ0EsSUFBSUYsV0FBVyxDQUFDRyxVQUFVLENBQUMsTUFBTSxDQUFDLEVBQUU7SUFDaEMsT0FBT0gsV0FBVyxDQUFDSSxRQUFRLENBQUMsU0FBUyxDQUFDLEdBQUdKLFdBQVcsR0FBR0EsV0FBVyxDQUFDSyxPQUFPLENBQUMsWUFBWSxFQUFFLFNBQVMsQ0FBQztFQUN2RztFQUNBLE9BQU8sRUFBRSxDQUFDLENBQUM7QUFDZixDQUFDOztBQUVEO0FBQ0EsSUFBTUMsZ0JBQWdCLGlSQUtwQjtBQUVGLElBQUlDLGlCQUFpQixHQUFHLEVBQUU7QUFD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</script></head>
+</head>
 <body>
-    <div id="root"><div class="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 flex flex-col items-center justify-center"><header class="w-full max-w-5xl mx-auto mb-6"><div class="flex justify-center items-center bg-white/50 p-3 rounded-full shadow-lg"><h1 class="font-heading text-shadow-fun text-purple-600 text-3xl">مغامرة الألعاب التعليمية</h1></div></header><main class="flex-grow w-full flex justify-center items-center"><div class="p-6 bg-white/95 rounded-2xl shadow-2xl w-full max-w-4xl"><h2 class="text-3xl font-extrabold mb-6 text-center">لوحة تحكم المعلم</h2><div class="space-y-4 max-h-[50vh] overflow-y-auto p-2"><div class="p-4 border rounded-lg bg-slate-50 flex flex-col md:flex-row items-start gap-4"><div class="flex-grow w-full"><div><h3 class="font-bold text-lg text-purple-800">المرحلة الأولى : اسمى الحيوان</h3><p class="text-sm text-slate-500" dir="ltr">https://wordwall.net/embed/15601e217899426ea6d1303083189505?themeId=66&amp;templateId=49&amp;fontStackId=0</p></div></div><div class="flex-shrink-0 flex items-center gap-2 w-full md:w-auto"><button class="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2">تعديل</button><button class="bg-red-500 text-white py-2 px-4 rounded-lg w-1/2">حذف</button></div></div><div class="p-4 border rounded-lg bg-slate-50 flex flex-col md:flex-row items-start gap-4"><div class="flex-grow w-full"><div><h3 class="font-bold text-lg text-purple-800">أنظر وأعبر</h3><p class="text-sm text-slate-500" dir="ltr">https://wordwall.net/embed/105bc4705c0e4da887b244a09f92da40?themeId=23&amp;templateId=49&amp;fontStackId=1</p></div></div><div class="flex-shrink-0 flex items-center gap-2 w-full md:w-auto"><button class="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2">تعديل</button><button class="bg-red-500 text-white py-2 px-4 rounded-lg w-1/2">حذف</button></div></div><div class="p-4 border rounded-lg bg-slate-50 flex flex-col md:flex-row items-start gap-4"><div class="flex-grow w-full"><div><h3 class="font-bold text-lg text-purple-800">أصل الصورة بما يكملها</h3><p class="text-sm text-slate-500" dir="ltr">https://wordwall.net/embed/5852fdd2f963452a96dffff70f8ddd74?themeId=26&amp;templateId=49&amp;fontStackId=0</p></div></div><div class="flex-shrink-0 flex items-center gap-2 w-full md:w-auto"><button class="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2">تعديل</button><button class="bg-red-500 text-white py-2 px-4 rounded-lg w-1/2">حذف</button></div></div></div><div class="mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4"><button class="w-full sm:w-auto bg-slate-600 text-white py-2 px-6 rounded-lg">+ إضافة مرحلة</button><button class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg">💾 تصدير ملف اللعبة الجديد للرفع</button><button class="w-full sm:w-auto bg-amber-500 text-white py-2 px-6 rounded-lg">العودة للعبة</button></div></div></main><footer class="w-full text-center p-4 mt-auto"><p class="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة</p></footer></div></div>
+    <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
         
-        // --- دالة مساعدة لاستخلاص الرابط النظيف من أي نص يتم لصقه ---
-        const extractUrlFromPastedText = (pastedText) => {
-            if (!pastedText || typeof pastedText !== 'string') return '';
-            const trimmedText = pastedText.trim();
-            // الحالة 1: المستخدم لصق كود iframe
-            const match = trimmedText.match(/src=['"]([^'"]+)['"]/i);
-            if (match && match[1]) return match[1];
-            // الحالة 2: المستخدم لصق رابط مباشر
-            if (trimmedText.startsWith('http')) {
-                return trimmedText.includes('/embed/') ? trimmedText : trimmedText.replace('/resource/', '/embed/');
-            }
-            return ''; // إرجاع نص فارغ إذا لم يتم العثور على رابط
-        };
-
-        // --- نظام تعريف المراحل الآمن ---
-        const stagesDataString = `/*STAGES_DATA_JSON*/[
-          {
-            "title": "المرحلة الأولى: مثال",
-            "gameUrl": "https://wordwall.net/embed/play/1024/299/659"
-          }
-        ]`;
-        
-        let initialStagesData = [];
-        try {
-            initialStagesData = JSON.parse(stagesDataString.replace('/*STAGES_DATA_JSON*/',''));
-        } catch(e) {
-            console.error("خطأ في قراءة المراحل الأساسية:", e);
-            initialStagesData = [];
-        }
-
-        const useLocalStorage = (key, initialValue) => {
-            const [storedValue, setStoredValue] = useState(() => {
-                try {
-                    const item = window.localStorage.getItem(key);
-                    if (item) {
-                        const parsed = JSON.parse(item);
-                        if (Array.isArray(parsed)) return parsed;
-                    }
-                    return initialValue;
-                } catch (error) { return initialValue; }
-            });
-            const setValue = (value) => {
-                try {
-                    const val = value instanceof Function ? value(storedValue) : value;
-                    setStoredValue(val);
-                    window.localStorage.setItem(key, JSON.stringify(val));
-                } catch (error) { console.error("Error writing to localStorage:", error); }
-            };
-            return [storedValue, setValue];
-        };
-
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
             const [isStageCompleted, setIsStageCompleted] = useState(false);
             const [showConfirmation, setShowConfirmation] = useState(false);
             useEffect(() => { setIsStageCompleted(false); setShowConfirmation(false); }, [currentStageIndex]);
             if (currentStageIndex >= stages.length) return <div className="text-center p-8 bg-white/80 rounded-2xl"><h2 className="text-4xl font-bold text-green-500">🎉 تهانينا! لقد أكملت كل المراحل! 🎉</h2></div>;
             const currentStage = stages[currentStageIndex] || {};
-            const gameUrl = currentStage.gameUrl; // --- تم التبسيط: استخدام الرابط مباشرة ---
+            const gameUrl = currentStage.gameUrl;
             const handleConfirm = (c) => { if(c) setIsStageCompleted(true); setShowConfirmation(false); };
             return (
                 <div className="relative text-center p-6 bg-white/80 rounded-2xl w-full max-w-4xl h-[75vh] flex flex-col">
@@ -479,82 +52,118 @@ ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.c
             );
         };
         
-        const StageItem = ({ stage, index, onUpdate, onDelete }) => {
-            const [isEditing, setIsEditing] = useState(!stage.title);
-            const [title, setTitle] = useState(stage.title);
-            const [pastedCode, setPastedCode] = useState(stage.gameUrl); // نعرض الرابط إذا كان موجوداً
+        // --- لوحة التحكم الجديدة: مولّد الروابط ---
+        const SettingsPanel = () => {
+            const template = `[
+  {
+    "title": "المرحلة الأولى: الفواكه",
+    "gameUrl": "https://wordwall.net/embed/play/1024/299/659"
+  },
+  {
+    "title": "المرحلة الثانية: الحيوانات",
+    "gameUrl": "https://wordwall.net/embed/play/2632/630/921"
+  }
+]`;
+            const [jsonText, setJsonText] = useState(template);
+            const [generatedUrl, setGeneratedUrl] = useState('');
+            const [copySuccess, setCopySuccess] = useState('');
 
-            const handlePastedCodeChange = (e) => {
-                setPastedCode(e.target.value);
-            };
-            
-            const handleSave = () => {
-                if (!title.trim() || !pastedCode.trim()) { alert('يرجى ملء الحقول.'); return; }
-                const gameUrl = extractUrlFromPastedText(pastedCode);
-                if (!gameUrl) {
-                    alert('لم يتم العثور على رابط صحيح. الرجاء لصق كود التضمين أو الرابط المباشر.');
-                    return;
+            const handleGenerate = () => {
+                try {
+                    // التحقق من صحة البيانات
+                    JSON.parse(jsonText);
+                    // ترميز البيانات لجعلها آمنة للروابط
+                    const encodedData = btoa(unescape(encodeURIComponent(jsonText)));
+                    const baseUrl = window.location.origin + window.location.pathname;
+                    setGeneratedUrl(`${baseUrl}#data=${encodedData}`);
+                    setCopySuccess('');
+                } catch (error) {
+                    alert("خطأ في صيغة البيانات! الرجاء التأكد من الأقواس والفواصل.\n" + error.message);
                 }
-                onUpdate(index, { title: title, gameUrl: gameUrl });
-                setIsEditing(false);
             };
-
-            const handleCancel = () => { if (!stage.title) { onDelete(index); } else { setIsEditing(false); } };
             
-            return (
-                <div className="p-4 border rounded-lg bg-slate-50 flex flex-col md:flex-row items-start gap-4">
-                    <div className="flex-grow w-full">{isEditing ? <div className="space-y-3"><input type="text" value={title} onChange={(e)=>setTitle(e.target.value)} className="w-full p-2 border rounded" placeholder="اسم المرحلة"/><textarea value={pastedCode} onChange={handlePastedCodeChange} className="w-full p-2 h-24 border rounded font-mono" placeholder="الصق كود التضمين أو الرابط هنا" dir="ltr"/></div> : <div><h3 className="font-bold text-lg text-purple-800">{stage.title}</h3><p className="text-sm text-slate-500" dir="ltr">{stage.gameUrl}</p></div>}</div>
-                    <div className="flex-shrink-0 flex items-center gap-2 w-full md:w-auto">{isEditing ? <><button onClick={handleSave} className="bg-green-500 text-white py-2 px-4 rounded-lg w-full">حفظ</button><button onClick={handleCancel} className="bg-gray-500 text-white py-2 px-4 rounded-lg w-full">إلغاء</button></> : <><button onClick={()=>setIsEditing(true)} className="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2">تعديل</button><button onClick={()=>onDelete(index)} className="bg-red-500 text-white py-2 px-4 rounded-lg w-1/2">حذف</button></>}</div>
-                </div>
-            );
-        };
-
-        const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
-            const [stages, setStages] = useState(initialStages);
-            const handleAdd = () => setStages([...stages, { title: '', gameUrl: '' }]);
-            const handleDelete = (i) => setStages(stages.filter((_,idx)=>i!==idx));
-            const handleUpdate = (i, u) => { const n=[...stages]; n[i]=u; setStages(n); };
-            useEffect(() => { onSave(stages); }, [stages]);
-
-            const handleExport = () => {
-                const newStagesJSON = JSON.stringify(stages, null, 2);
-                const fullPageHtml = document.documentElement.outerHTML;
-                const newHtmlContent = fullPageHtml.replace(/const stagesDataString = `\/\*STAGES_DATA_JSON\*\/[\s\S]*?`;/, `const stagesDataString = \`/*STAGES_DATA_JSON*/${newStagesJSON}\`;`);
-                const blob = new Blob([newHtmlContent], { type: 'text/html' });
-                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click(); URL.revokeObjectURL(a.href);
-                alert("تم تصدير ملف index.html الجديد بنجاح!\nالخطوة التالية: ارفع هذا الملف إلى GitHub ليحل محل الملف القديم.");
+            const handleCopy = () => {
+                navigator.clipboard.writeText(generatedUrl).then(() => {
+                    setCopySuccess('تم النسخ بنجاح!');
+                    setTimeout(() => setCopySuccess(''), 2000);
+                }, () => {
+                    setCopySuccess('فشل النسخ.');
+                });
             };
 
             return (
                 <div className="p-6 bg-white/95 rounded-2xl shadow-2xl w-full max-w-4xl">
-                    <h2 className="text-3xl font-extrabold mb-6 text-center">لوحة تحكم المعلم</h2>
-                    <div className="space-y-4 max-h-[50vh] overflow-y-auto p-2">{stages.map((s, i) => <StageItem key={i} index={i} stage={s} onUpdate={handleUpdate} onDelete={handleDelete} />)}</div>
-                    <div className="mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <button onClick={handleAdd} className="w-full sm:w-auto bg-slate-600 text-white py-2 px-6 rounded-lg">+ إضافة مرحلة</button>
-                        <button onClick={handleExport} className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg">💾 تصدير ملف اللعبة الجديد للرفع</button>
-                        <button onClick={onBackToGame} className="w-full sm:w-auto bg-amber-500 text-white py-2 px-6 rounded-lg">العودة للعبة</button>
-                    </div>
+                    <h2 className="text-3xl font-extrabold mb-2 text-center">لوحة تحكم المعلم (مولّد الروابط)</h2>
+                    <p className="text-center text-slate-600 mb-6">
+                        الصق بيانات المراحل في الصندوق، ثم أنشئ رابطاً دائماً لمشاركته مع الطلاب.
+                    </p>
+                    <textarea 
+                        className="w-full h-64 p-3 font-mono text-sm border-2 rounded-lg ltr"
+                        value={jsonText}
+                        onChange={(e) => setJsonText(e.target.value)}
+                        dir="ltr"
+                    />
+                    <button 
+                        onClick={handleGenerate}
+                        className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-3 text-lg rounded-lg shadow-lg"
+                    >
+                        🚀 إنشاء رابط اللعبة الدائم
+                    </button>
+                    
+                    {generatedUrl && (
+                        <div className="mt-6 p-4 border-t-2">
+                            <h3 className="text-lg font-bold">الرابط جاهز للمشاركة:</h3>
+                            <div className="flex items-center gap-2 mt-2">
+                                <input type="text" readOnly value={generatedUrl} className="w-full p-2 border rounded bg-slate-100 ltr" dir="ltr" />
+                                <button onClick={handleCopy} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg copy-button">
+                                    {copySuccess ? copySuccess : 'نسخ'}
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             );
         };
 
         function App() {
-            const [stages, setStages] = useLocalStorage('wordwallStages', initialStagesData);
+            const [stages, setStages] = useState(null);
             const [view, setView] = useState('game');
             const [currentStageIndex, setCurrentStageIndex] = useState(0);
             const keySequenceRef = useRef('');
+
+            // --- التعديل الرئيسي: قراءة البيانات من الرابط ---
+            useEffect(() => {
+                try {
+                    const hash = window.location.hash;
+                    if (hash && hash.startsWith('#data=')) {
+                        const encodedData = hash.substring(6);
+                        const decodedJson = decodeURIComponent(escape(atob(encodedData)));
+                        setStages(JSON.parse(decodedJson));
+                    } else {
+                        // لا توجد بيانات في الرابط، ابدأ فارغاً
+                        setStages([]);
+                    }
+                } catch (error) {
+                    console.error("خطأ في قراءة البيانات من الرابط:", error);
+                    setStages([]); // في حالة الخطأ، لا تعرض أي شيء
+                }
+            }, []);
+            
             useEffect(() => { const h=(e)=>{if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;const k='admin';keySequenceRef.current=(keySequenceRef.current+e.key).slice(-k.length);if(keySequenceRef.current===k)setView('settings');}; window.addEventListener('keydown',h); return ()=>window.removeEventListener('keydown',h);},[]);
-            const handleUpdateStages = (s) => setStages(s);
+            
             const handleNextStage = () => setCurrentStageIndex(p => p + 1);
-            const validStages = Array.isArray(stages) ? stages.filter(s => s && s.gameUrl && s.gameUrl.trim() !== '') : [];
+            
+            if (stages === null) {
+                return <div className="min-h-screen flex items-center justify-center bg-sky-400 text-white text-2xl font-bold">...جاري التحميل</div>
+            }
 
             return (
                 <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 flex flex-col items-center justify-center">
                     <header className="w-full max-w-5xl mx-auto mb-6"><div className="flex justify-center items-center bg-white/50 p-3 rounded-full shadow-lg"><h1 className="font-heading text-shadow-fun text-purple-600 text-3xl">مغامرة الألعاب التعليمية</h1></div></header>
                     <main className="flex-grow w-full flex justify-center items-center">
-                        {view==='settings' ? <SettingsPanel initialStages={stages} onSave={handleUpdateStages} onBackToGame={()=>setView('game')}/> : 
-                         validStages.length>0 ? <GameContainer stages={validStages} currentStageIndex={currentStageIndex} onNextStage={handleNextStage}/> : 
-                         <div className="text-center p-8 bg-white/80 rounded-2xl"><h1 className="text-5xl font-heading text-amber-500 mb-4">🚀 مرحباً بك! 🚀</h1><p className="text-xl mt-2">لا توجد مراحل مُعدة.</p></div>}
+                        {view === 'settings' ? <SettingsPanel /> : 
+                         stages.length > 0 ? <GameContainer stages={stages} currentStageIndex={currentStageIndex} onNextStage={handleNextStage} /> : 
+                         <div className="text-center p-8 bg-white/80 rounded-2xl"><h1 className="text-5xl font-heading text-amber-500 mb-4">🚀 مرحباً بك! 🚀</h1><p className="text-xl mt-2">لا توجد مراحل مُعدة في هذا الرابط.</p><p className="mt-2">يمكن للمعلم استخدام لوحة التحكم لإنشاء رابط جديد.</p></div>}
                     </main>
                     <footer className="w-full text-center p-4 mt-auto"><p className="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة</p></footer>
                 </div>
@@ -563,6 +172,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.c
 
         ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
     </script>
-
-
-</body></html>
+</body>
+</html>
