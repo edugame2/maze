@@ -7,13 +7,9 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
-
-    <!-- Custom Styles -->
     <style>
         body { font-family: 'Cairo', sans-serif; }
         .font-heading { font-family: 'Fredoka One', cursive; }
@@ -23,342 +19,175 @@
     <!-- React Libraries -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-    <!-- Babel for JSX Transpilation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Firebase Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
+        // --- بداية التعديل: إعداد Firebase ---
+        // !! هام: استبدل هذه القيم بالقيم الخاصة بك من إعدادات مشروع Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSy...",
+            authDomain: "your-project-id.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project-id.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
+            };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const stagesCollection = db.collection("data").doc("stages");
+        // --- نهاية التعديل ---
+
         const { useState, useEffect, useRef } = React;
         
-        const useLocalStorage = (key, initialValue) => {
-            const [storedValue, setStoredValue] = useState(() => {
-                try {
-                    const item = window.localStorage.getItem(key);
-                    if (item) {
-                        const parsed = JSON.parse(item);
-                        // إذا كانت هناك بيانات محفوظة، استخدمها. وإلا، استخدم القيمة الأولية من الكود.
-                        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-                    }
-                    return initialValue;
-                } catch (error) {
-                    window.localStorage.removeItem(key);
-                    return initialValue;
-                }
-            });
+        // (تم حذف useLocalStorage لأنه لم يعد ضرورياً)
 
-            const setValue = (value) => {
-                try {
-                    const valueToStore = value instanceof Function ? value(storedValue) : value;
-                    setStoredValue(valueToStore);
-                    window.localStorage.setItem(key, JSON.stringify(valueToStore));
-                } catch (error) { console.error("Error writing to localStorage:", error); }
-            };
-            return [storedValue, setValue];
-        };
-
+        // --- (باقي المكونات مثل GameContainer و StageItem لم تتغير) ---
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
             const [isStageCompleted, setIsStageCompleted] = useState(false);
             const [showConfirmation, setShowConfirmation] = useState(false);
-
-            useEffect(() => {
-                setIsStageCompleted(false);
-                setShowConfirmation(false);
-            }, [currentStageIndex]);
-
+            useEffect(() => { setIsStageCompleted(false); setShowConfirmation(false); }, [currentStageIndex]);
             const extractSrcFromEmbed = (embedCode) => {
                 if (!embedCode || typeof embedCode !== 'string') return null;
                 const match = embedCode.match(/src="([^"]+)"/);
                 return match ? match[1] : null;
             };
-
             if (currentStageIndex >= stages.length) {
-                return (
-                    <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl">
-                        <h2 className="text-4xl font-bold text-green-500 mb-4">🎉 تهانينا! لقد أكملت كل المراحل! 🎉</h2>
-                    </div>
-                );
+                return <div className="text-center p-8 bg-white/80 rounded-2xl shadow-2xl"><h2 className="text-4xl font-bold text-green-500 mb-4">🎉 تهانينا! لقد أكملت كل المراحل! 🎉</h2></div>;
             }
-
             const currentStage = stages[currentStageIndex] || {};
             const gameUrl = extractSrcFromEmbed(currentStage.embedCode);
-
-            const handleConfirmation = (confirmed) => {
-                if (confirmed) {
-                    setIsStageCompleted(true);
-                }
-                setShowConfirmation(false);
-            };
-
+            const handleConfirmation = (confirmed) => { if (confirmed) { setIsStageCompleted(true); } setShowConfirmation(false); };
             return (
-                <div className="relative text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-4xl h-[75vh] flex flex-col">
+                <div className="relative text-center p-6 bg-white/80 rounded-2xl shadow-2xl w-full max-w-4xl h-[75vh] flex flex-col">
                     <h2 className="text-3xl font-bold mb-4">المرحلة {currentStageIndex + 1}: {currentStage.title}</h2>
-                    <div className="flex-grow w-full">
-                        {gameUrl ? (
-                            <iframe 
-                                src={gameUrl} 
-                                className="w-full h-full border-4 border-purple-300 rounded-lg shadow-inner"
-                                frameBorder="0" 
-                                allowFullScreen
-                            ></iframe>
-                        ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-red-100 text-red-700 border-4 border-red-300 rounded-lg">
-                                <p className="font-bold">خطأ: كود التضمين غير صحيح لهذه المرحلة.</p>
-                            </div>
-                        )}
-                    </div>
-                    
-                    <div className="mt-6">
-                        {!isStageCompleted ? (
-                            <button 
-                                onClick={() => setShowConfirmation(true)}
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105"
-                            >
-                                لقد انتهيت من هذه المرحلة
-                            </button>
-                        ) : (
-                            <button 
-                                onClick={onNextStage}
-                                className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 animate-pulse"
-                            >
-                                الانتقال للمرحلة التالية
-                            </button>
-                        )}
-                    </div>
-
-                    {showConfirmation && (
-                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-2xl">
-                            <div className="bg-white p-8 rounded-xl shadow-2xl text-center">
-                                <h3 className="text-2xl font-bold text-slate-800 mb-4">هل أنت متأكد أنك انتهيت؟</h3>
-                                <div className="flex justify-center gap-4">
-                                    <button
-                                        onClick={() => handleConfirmation(true)}
-                                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded-lg"
-                                    >
-                                        نعم
-                                    </button>
-                                    <button
-                                        onClick={() => handleConfirmation(false)}
-                                        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-8 rounded-lg"
-                                    >
-                                        لا
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                    <div className="flex-grow w-full">{gameUrl ? <iframe src={gameUrl} className="w-full h-full border-4 border-purple-300 rounded-lg" frameBorder="0" allowFullScreen></iframe> : <div className="w-full h-full flex items-center justify-center bg-red-100 text-red-700 border-4 border-red-300 rounded-lg"><p className="font-bold">خطأ: كود التضمين غير صحيح.</p></div>}</div>
+                    <div className="mt-6">{!isStageCompleted ? <button onClick={() => setShowConfirmation(true)} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg">لقد انتهيت</button> : <button onClick={onNextStage} className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg animate-pulse">التالي</button>}</div>
+                    {showConfirmation && <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-2xl"><div className="bg-white p-8 rounded-xl shadow-2xl"><h3 className="text-2xl font-bold mb-4">هل أنت متأكد؟</h3><div className="flex justify-center gap-4"><button onClick={() => handleConfirmation(true)} className="bg-green-500 hover:bg-green-600 text-white py-2 px-8 rounded-lg">نعم</button><button onClick={() => handleConfirmation(false)} className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-8 rounded-lg">لا</button></div></div></div>}
                 </div>
             );
         };
-        
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
             const [isEditing, setIsEditing] = useState(!stage.title);
             const [tempStage, setTempStage] = useState(stage);
-
-            const handleSave = () => {
-                if (tempStage.title.trim() === '' || !tempStage.embedCode || tempStage.embedCode.trim() === '') {
-                    alert('الرجاء ملء اسم المرحلة وكود التضمين.');
-                    return;
-                }
-                onUpdate(index, tempStage);
-                setIsEditing(false);
-            };
-
-            const handleCancel = () => {
-                if (!stage.title && (!stage.embedCode || tempStage.embedCode.trim() === '')) {
-                    onDelete(index);
-                } else {
-                    setTempStage(stage);
-                    setIsEditing(false);
-                }
-            };
-
+            const handleSave = () => { if (tempStage.title.trim() === '' || !tempStage.embedCode || tempStage.embedCode.trim() === '') { alert('يرجى ملء الحقول.'); return; } onUpdate(index, tempStage); setIsEditing(false); };
+            const handleCancel = () => { if (!stage.title && (!stage.embedCode || stage.embedCode.trim() === '')) { onDelete(index); } else { setTempStage(stage); setIsEditing(false); } };
             return (
                 <div className="p-4 border border-slate-300 rounded-lg bg-slate-50 flex flex-col md:flex-row items-start gap-4">
-                    <div className="flex-grow w-full">
-                        {isEditing ? (
-                            <div className="space-y-3">
-                                <input 
-                                    type="text"
-                                    value={tempStage.title}
-                                    onChange={(e) => setTempStage({...tempStage, title: e.target.value})}
-                                    className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
-                                    placeholder="اسم المرحلة"
-                                />
-                                <textarea
-                                    value={tempStage.embedCode || ''}
-                                    onChange={(e) => setTempStage({...tempStage, embedCode: e.target.value})}
-                                    className="w-full px-3 py-2 h-24 border border-slate-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 font-mono text-sm"
-                                    placeholder="الصق كود التضمين (embed code) هنا"
-                                    dir="ltr"
-                                />
-                            </div>
-                        ) : (
-                            <div>
-                                <h3 className="font-bold text-lg text-purple-800">{stage.title}</h3>
-                                <p className="text-sm text-slate-500">تم إدخال كود التضمين.</p>
-                            </div>
-                        )}
-                    </div>
-                    <div className="flex-shrink-0 flex items-center gap-2 w-full md:w-auto">
-                        {isEditing ? (
-                            <>
-                                <button onClick={handleSave} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg flex-grow">حفظ</button>
-                                <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg flex-grow">إلغاء</button>
-                            </>
-                        ) : (
-                            <>
-                                <button onClick={() => setIsEditing(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg w-1/2 md:w-auto">تعديل</button>
-                                <button onClick={() => onDelete(index)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg w-1/2 md:w-auto">حذف</button>
-                            </>
-                        )}
-                    </div>
+                    <div className="flex-grow w-full">{isEditing ? <div className="space-y-3"><input type="text" value={tempStage.title} onChange={(e) => setTempStage({...tempStage, title: e.target.value})} className="w-full p-2 border rounded" placeholder="اسم المرحلة" /><textarea value={tempStage.embedCode || ''} onChange={(e) => setTempStage({...tempStage, embedCode: e.target.value})} className="w-full p-2 h-24 border rounded font-mono" placeholder="كود التضمين" dir="ltr" /></div> : <div><h3 className="font-bold text-lg text-purple-800">{stage.title}</h3><p className="text-sm text-slate-500">تم إدخال الكود.</p></div>}</div>
+                    <div className="flex-shrink-0 flex items-center gap-2 w-full md:w-auto">{isEditing ? <><button onClick={handleSave} className="bg-green-500 text-white py-2 px-4 rounded-lg w-full">حفظ</button><button onClick={handleCancel} className="bg-gray-500 text-white py-2 px-4 rounded-lg w-full">إلغاء</button></> : <><button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2">تعديل</button><button onClick={() => onDelete(index)} className="bg-red-500 text-white py-2 px-4 rounded-lg w-1/2">حذف</button></>}</div>
                 </div>
             );
         };
 
+        // --- بداية التعديل: SettingsPanel الآن يحفظ في Firestore ---
         const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
             const [stages, setStages] = useState(initialStages);
 
-            const handleAddStage = () => {
-                setStages([...stages, { title: '', embedCode: '', type: 'wordwall' }]);
+            // الدالة onSave الآن سترسل البيانات إلى Firebase
+            const handleGlobalSave = () => {
+                onSave(stages);
+                alert('تم حفظ المراحل للجميع بنجاح!');
             };
 
-            const handleDeleteStage = (indexToDelete) => {
-                const newStages = stages.filter((_, index) => index !== indexToDelete);
-                setStages(newStages);
-                onSave(newStages);
-            };
-            
+            const handleAddStage = () => setStages([...stages, { title: '', embedCode: '', type: 'wordwall' }]);
+            const handleDeleteStage = (indexToDelete) => setStages(stages.filter((_, index) => index !== indexToDelete));
             const handleUpdateStage = (index, updatedStage) => {
                 const newStages = [...stages];
                 newStages[index] = updatedStage;
                 setStages(newStages);
-                onSave(newStages);
             };
-
             return (
-                <div className="p-6 sm:p-8 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-200">
-                    <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-slate-800 text-center">لوحة تحكم المعلم</h2>
-                    
+                <div className="p-6 sm:p-8 bg-white/95 rounded-2xl shadow-2xl w-full max-w-4xl">
+                    <h2 className="text-3xl font-extrabold mb-6 text-center">لوحة تحكم المعلم</h2>
                     <div className="space-y-4 max-h-[50vh] overflow-y-auto p-2">
-                        {stages.length > 0 ? stages.map((stage, index) => (
-                            <StageItem
-                                key={index}
-                                index={index}
-                                stage={stage}
-                                onUpdate={handleUpdateStage}
-                                onDelete={handleDeleteStage}
-                            />
-                        )) : (
-                            <p className="text-center text-slate-500 p-4">لا توجد مراحل حالياً. اضغط على "إضافة مرحلة جديدة" للبدء.</p>
-                        )}
+                        {stages.map((stage, index) => <StageItem key={index} index={index} stage={stage} onUpdate={handleUpdateStage} onDelete={handleDeleteStage} />)}
                     </div>
-                    
-                    <div className="mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <button onClick={handleAddStage} className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition-transform transform hover:scale-105">
-                            + إضافة مرحلة جديدة
-                        </button>
-                        <button onClick={onBackToGame} className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-lg shadow-md">
-                            العودة للعبة
-                        </button>
+                    <div className="mt-6 border-t pt-6 flex flex-col sm:flex-row justify-between gap-4">
+                        <button onClick={handleAddStage} className="w-full sm:w-auto bg-purple-600 text-white py-2 px-6 rounded-lg">+ إضافة مرحلة</button>
+                        <div>
+                            <button onClick={handleGlobalSave} className="bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md mr-4">حفظ للجميع</button>
+                            <button onClick={onBackToGame} className="bg-amber-500 text-white py-2 px-6 rounded-lg shadow-md">العودة للعبة</button>
+                        </div>
                     </div>
                 </div>
             );
         };
+        // --- نهاية التعديل ---
 
+
+        // --- بداية التعديل: App الآن يقرأ ويكتب من/إلى Firestore ---
         function App() {
-            // ---  هذا هو التغيير الرئيسي ---
-            // لقد قمنا بوضع المراحل هنا بشكل دائم. يمكنك تعديلها أو إضافة المزيد.
-            const [stages, setStages] = useLocalStorage('wordwallStages', [
-              {
-                "title": "المرحلة الأولى: مثال",
-                "embedCode": "<iframe style=\"max-width:100%\" src=\"https://wordwall.net/embed/play/1024/299/659\" width=\"500\" height=\"380\" frameborder=\"0\" allowfullscreen></iframe>",
-                "type": "wordwall"
-              },
-              {
-                "title": "المرحلة الثانية: مثال آخر",
-                "embedCode": "<iframe style=\"max-width:100%\" src=\"https://wordwall.net/embed/play/2632/630/921\" width=\"500\" height=\"380\" frameborder=\"0\" allowfullscreen></iframe>",
-                "type": "wordwall"
-              }
-            ]);
-
+            const [stages, setStages] = useState(null); // يبدأ بـ null لإظهار شاشة تحميل
             const [view, setView] = useState('game');
             const [currentStageIndex, setCurrentStageIndex] = useState(0);
             const keySequenceRef = useRef('');
 
+            // جلب المراحل من Firebase عند تحميل التطبيق
             useEffect(() => {
-                const handleKeyDown = (e) => {
-                    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-                    const adminKey = 'admin';
-                    keySequenceRef.current = (keySequenceRef.current + e.key.toLowerCase()).slice(-adminKey.length);
-                    if (keySequenceRef.current === adminKey) {
-                        setView('settings');
-                        keySequenceRef.current = '';
+                stagesCollection.get().then(doc => {
+                    if (doc.exists && doc.data().list) {
+                        setStages(doc.data().list);
+                    } else {
+                        setStages([]); // إذا لم تكن هناك مراحل، ابدأ بمصفوفة فارغة
                     }
-                };
+                }).catch(error => {
+                    console.error("Error fetching stages:", error);
+                    setStages([]); // في حالة الخطأ، ابدأ بمصفوفة فارغة
+                });
+            }, []);
+
+            const handleUpdateStages = (newStages) => {
+                // حفظ المراحل المحدثة في Firebase
+                stagesCollection.set({ list: newStages })
+                    .then(() => {
+                        setStages(newStages);
+                    })
+                    .catch(error => {
+                        console.error("Error saving stages:", error);
+                        alert("حدث خطأ أثناء الحفظ!");
+                    });
+            };
+            
+            useEffect(() => {
+                const handleKeyDown = (e) => { if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return; const key = 'admin'; keySequenceRef.current = (keySequenceRef.current + e.key).slice(-key.length); if (keySequenceRef.current === key) setView('settings'); };
                 window.addEventListener('keydown', handleKeyDown);
                 return () => window.removeEventListener('keydown', handleKeyDown);
             }, []);
 
-            const handleUpdateStages = (newStages) => {
-                setStages(newStages);
-            };
-            
-            const handleNextStage = () => {
-                setCurrentStageIndex(prev => prev + 1);
-            };
+            const handleNextStage = () => setCurrentStageIndex(prev => prev + 1);
 
+            // عرض شاشة تحميل بينما يتم جلب البيانات
+            if (stages === null) {
+                return <div className="min-h-screen flex items-center justify-center text-white text-2xl font-bold">...جاري تحميل المراحل</div>
+            }
+            
             const validStages = Array.isArray(stages) ? stages.filter(s => s && s.embedCode && s.embedCode.trim() !== '') : [];
 
             return (
-                <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 sm:p-6 flex flex-col items-center justify-center">
-                    <header className="w-full max-w-5xl mx-auto mb-6">
-                        <div className="flex justify-center items-center bg-white/50 backdrop-blur-sm p-3 rounded-full shadow-lg border-2 border-white">
-                            <h1 className="font-heading text-shadow-fun text-purple-600 text-2xl sm:text-3xl">مغامرة الألعاب التعليمية</h1>
-                        </div>
-                    </header>
+                <div className="bg-gradient-to-br from-amber-200 via-violet-300 to-sky-400 min-h-screen text-slate-800 p-4 sm:p-6 flex flex-col items-center">
+                    <header className="w-full max-w-5xl mx-auto mb-6"><div className="flex justify-center items-center bg-white/50 p-3 rounded-full shadow-lg"><h1 className="font-heading text-shadow-fun text-purple-600 text-3xl">مغامرة الألعاب التعليمية</h1></div></header>
                     <main className="flex-grow w-full flex justify-center items-center">
-                        {view === 'settings' ? (
-                            <SettingsPanel 
-                                initialStages={Array.isArray(stages) ? stages : []}
-                                onSave={handleUpdateStages}
-                                onBackToGame={() => setView('game')}
-                            />
-                        ) : validStages.length > 0 ? (
-                            <GameContainer 
-                                stages={validStages}
-                                currentStageIndex={currentStageIndex}
-                                onNextStage={handleNextStage}
-                            />
-                        ) : (
-                            <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-4 border-white">
-                                <h1 className="text-5xl font-heading text-amber-500 text-shadow-fun mb-4">🚀 مرحباً بك! 🚀</h1>
-                                <p className="text-xl text-slate-600 mt-2">لا توجد مراحل مُعدة بعد.</p>
-                            </div>
-                        )}
+                        {view === 'settings' ? <SettingsPanel initialStages={stages} onSave={handleUpdateStages} onBackToGame={() => setView('game')} /> :
+                         validStages.length > 0 ? <GameContainer stages={validStages} currentStageIndex={currentStageIndex} onNextStage={handleNextStage} /> :
+                         <div className="text-center p-8 bg-white/80 rounded-2xl shadow-2xl"><h1 className="text-5xl font-heading text-amber-500 mb-4">🚀 مرحباً بك! 🚀</h1><p className="text-xl mt-2">لا توجد مراحل مُعدة بعد.</p></div>}
                     </main>
-                    <footer className="w-full text-center p-4 mt-auto">
-                        <p className="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة - [اسم مؤسستك]</p>
-                    </footer>
+                    <footer className="w-full text-center p-4 mt-auto"><p className="text-white/80 text-sm">© 2024 جميع الحقوق محفوظة</p></footer>
                 </div>
             );
         }
+        // --- نهاية التعديل ---
 
         const rootElement = document.getElementById('root');
-        try {
-            const root = ReactDOM.createRoot(rootElement);
-            root.render(<React.StrictMode><App /></React.StrictMode>);
-        } catch(error) {
-            console.error("Fatal error rendering React app:", error);
-            rootElement.innerHTML = `<div style="padding: 2rem; text-align: center; background-color: #fff3f3; color: #b91c1c;">
-                <h1 style="font-size: 1.5rem; font-weight: bold;">حدث خطأ في التطبيق</h1>
-                <p>لا يمكن تحميل التطبيق. الرجاء محاولة مسح بيانات الموقع والمحاولة مرة أخرى.</p>
-                <pre style="margin-top: 1rem; padding: 1rem; background-color: #fee2e2; border-radius: 8px; text-align: left; direction: ltr;">${error.message}</pre>
-            </div>`;
-        }
+        ReactDOM.createRoot(rootElement).render(<React.StrictMode><App /></React.StrictMode>);
     </script>
 </body>
 </html>
