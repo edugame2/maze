@@ -33,18 +33,17 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
         
-        // --- Custom Hook: useLocalStorage (هذا هو المسؤول عن الحفظ الدائم) ---
         const useLocalStorage = (key, initialValue) => {
             const [storedValue, setStoredValue] = useState(() => {
                 try {
                     const item = window.localStorage.getItem(key);
                     if (item) {
                         const parsed = JSON.parse(item);
-                        if (Array.isArray(parsed)) return parsed;
+                        // إذا كانت هناك بيانات محفوظة، استخدمها. وإلا، استخدم القيمة الأولية من الكود.
+                        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
                     }
                     return initialValue;
                 } catch (error) {
-                    console.error("خطأ في قراءة البيانات، سيتم حذفها:", error);
                     window.localStorage.removeItem(key);
                     return initialValue;
                 }
@@ -54,14 +53,12 @@
                 try {
                     const valueToStore = value instanceof Function ? value(storedValue) : value;
                     setStoredValue(valueToStore);
-                    // هنا يتم الحفظ في ذاكرة المتصفح الدائمة
                     window.localStorage.setItem(key, JSON.stringify(valueToStore));
-                } catch (error) { console.error("خطأ في كتابة البيانات:", error); }
+                } catch (error) { console.error("Error writing to localStorage:", error); }
             };
             return [storedValue, setValue];
         };
 
-        // --- Game Component: GameContainer ---
         const GameContainer = ({ stages, currentStageIndex, onNextStage }) => {
             const [isStageCompleted, setIsStageCompleted] = useState(false);
             const [showConfirmation, setShowConfirmation] = useState(false);
@@ -156,7 +153,6 @@
             );
         };
         
-        // --- Settings Component: StageItem ---
         const StageItem = ({ stage, index, onUpdate, onDelete }) => {
             const [isEditing, setIsEditing] = useState(!stage.title);
             const [tempStage, setTempStage] = useState(stage);
@@ -171,7 +167,7 @@
             };
 
             const handleCancel = () => {
-                if (!stage.title && (!stage.embedCode || stage.embedCode.trim() === '')) {
+                if (!stage.title && (!stage.embedCode || tempStage.embedCode.trim() === '')) {
                     onDelete(index);
                 } else {
                     setTempStage(stage);
@@ -223,7 +219,6 @@
             );
         };
 
-        // --- Settings Component: SettingsPanel ---
         const SettingsPanel = ({ initialStages, onSave, onBackToGame }) => {
             const [stages, setStages] = useState(initialStages);
 
@@ -274,9 +269,22 @@
             );
         };
 
-        // --- Main App Component ---
         function App() {
-            const [stages, setStages] = useLocalStorage('wordwallStages', []);
+            // ---  هذا هو التغيير الرئيسي ---
+            // لقد قمنا بوضع المراحل هنا بشكل دائم. يمكنك تعديلها أو إضافة المزيد.
+            const [stages, setStages] = useLocalStorage('wordwallStages', [
+              {
+                "title": "المرحلة الأولى: مثال",
+                "embedCode": "<iframe style=\"max-width:100%\" src=\"https://wordwall.net/embed/play/1024/299/659\" width=\"500\" height=\"380\" frameborder=\"0\" allowfullscreen></iframe>",
+                "type": "wordwall"
+              },
+              {
+                "title": "المرحلة الثانية: مثال آخر",
+                "embedCode": "<iframe style=\"max-width:100%\" src=\"https://wordwall.net/embed/play/2632/630/921\" width=\"500\" height=\"380\" frameborder=\"0\" allowfullscreen></iframe>",
+                "type": "wordwall"
+              }
+            ]);
+
             const [view, setView] = useState('game');
             const [currentStageIndex, setCurrentStageIndex] = useState(0);
             const keySequenceRef = useRef('');
@@ -328,8 +336,7 @@
                         ) : (
                             <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border-4 border-white">
                                 <h1 className="text-5xl font-heading text-amber-500 text-shadow-fun mb-4">🚀 مرحباً بك! 🚀</h1>
-                                <p className="text-xl text-slate-600 mt-2">لا توجد مراحل مُعدة بعد. يمكن للمعلم إضافة ألعاب.</p>
-                                <p className="text-sm text-slate-500 mt-4">(لفتح لوحة التحكم، اكتب كلمة "admin" بلوحة المفاتيح)</p>
+                                <p className="text-xl text-slate-600 mt-2">لا توجد مراحل مُعدة بعد.</p>
                             </div>
                         )}
                     </main>
@@ -340,7 +347,6 @@
             );
         }
 
-        // --- Root Rendering with Error Boundary ---
         const rootElement = document.getElementById('root');
         try {
             const root = ReactDOM.createRoot(rootElement);
